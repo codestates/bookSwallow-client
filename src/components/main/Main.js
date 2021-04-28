@@ -29,7 +29,7 @@ function Main() {
         <div className="left">
           <span className="left__logo">Logo</span>
           <span className="left__title">BookSwallow</span>
-          <div>Do you like a book</div>
+          <div className="left__content">Do you like a book</div>
         </div>
         <div className="right">
           <img src="/images/mainImage.jpeg" alt="메인이미지" />
