@@ -4,8 +4,21 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
 
+  .left {
+    background-color: red;
+  }
+  .left > .logo {
+    font-size: 5rem;
+  }
+  .left > span {
+    font-size: 5rem;
+  }
+
+  .right {
+    margin-top: 3rem;
+  }
   .right > img {
-    width: 700px;
+    width: 500px;
   }
 `;
 
@@ -14,8 +27,8 @@ function Main() {
     <>
       <Container>
         <div className="left">
-          <div>Logo</div>
-          <div>BookSwallow</div>
+          <span className="left__logo">Logo</span>
+          <span className="left__title">BookSwallow</span>
           <div>Do you like a book</div>
         </div>
         <div className="right">
