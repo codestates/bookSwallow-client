@@ -8,7 +8,7 @@ const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
   background-color: #f4f4f4;
-  border-bottom: 1px solid #adb5bd;
+  border-bottom: 2px solid #adb5bd;
   a {
     font-size: 1.5rem;
   }

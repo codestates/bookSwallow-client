@@ -12,7 +12,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
 const Wrapper = styled(Responsive)`
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 function App() {
