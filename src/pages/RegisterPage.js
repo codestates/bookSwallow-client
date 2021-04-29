@@ -1,10 +1,13 @@
 import React from 'react';
+import AuthTemplate from '../containers/auth/AutoTemplate'
+import RegisterForm from '../containers/auth/RegisterForm'
 
-function RegisterPage() {
+
+const RegisterPage = () => {
   return (
-    <div>
-      <div>회원가입 페이지입니다.</div>
-    </div>
+    <AuthTemplate>
+      <RegisterForm></RegisterForm>
+    </AuthTemplate>
   );
 }
 
