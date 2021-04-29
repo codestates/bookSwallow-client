@@ -1,10 +1,13 @@
 import React from 'react';
+import styled from 'styled-components'
+import AuthTemplate from '../containers/auth/AutoTemplate'
+import LoginForm from '../containers/auth/LoginForm'
 
 function LoginPage() {
   return (
-    <div>
-      <div>로그인페이지입니다.</div>
-    </div>
+      <AuthTemplate>
+        <LoginForm></LoginForm>
+      </AuthTemplate>
   );
 }
 

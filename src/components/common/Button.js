@@ -1,35 +1,41 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import palette from '../../lib/styles/palette'
+// import palette from '../../lib/styles/palette'
 import { darken, lighten } from 'polished';
 
 const buttonStyle = css`
     border: none;
-    border-radius: 4px;
+    border-radius: 0.5rem;
     font-size: 1rem;
-    padding: 1rem 4rem;
-    color: white;
+    padding: 1rem 2rem;
+    color: gray;
     outline: none;
     cursor: pointer;
+    margin-bottom: 1rem;
 
-    background: ${palette.button[0]};
+    background: "#D7CCC8";
     &:hover {
-        background: ${lighten(0.1, palette.button[0])};
+        background: ${lighten(0.1, "#D7CCC8")};
     }
     &:active {
-        background: ${darken(0.1, palette.button[0])};
+        background: ${darken(0.1, "#D7CCC8")};
       }
     
     ${(props) =>
         props.sideButton &&
         css`
-        background: ${palette.button[1]};
+        background: "#C4C4C4";
         &:hover {
-            background: ${lighten(0.1, palette.button[1])};
+            background: ${lighten(0.1, "#C4C4C4")};
         }
         &:active {
-            background: ${darken(0.1, palette.button[1])};
+            background: ${darken(0.1, "#C4C4C4")};
           }
+        
+        & + & {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
         `
     }
 `
@@ -39,7 +45,9 @@ ${ buttonStyle };
 `
 
 const Button = (props) => {
-    return <StyledButton {...props} sideButton={props.sideButton}>{props.children}</StyledButton>
+    return <StyledButton {...props} 
+        sideButton={props.sideButton}>{props.children}
+    </StyledButton>
 }
 
 export default Button

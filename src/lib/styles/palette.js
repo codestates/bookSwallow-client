@@ -1,3 +1,5 @@
 const palette = {
-    button: ["#D7CCC8","#C4C4C4"],
+    gray: "#C4C4C4",
+    pink: "#D7CCC8",
+    background: "#f4f4f4"
 }

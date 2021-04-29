@@ -1,1 +1,102 @@
-// 회원가입을 하는 컴포넌트
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+// import palette from '../../lib/styles/palette'
+import Button from '../common/Button'
+
+const AuthFormBlock = styled.div`
+    h2 {
+        margin: 3rem;
+        color: black;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        font-weight: 
+    }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0.1rem solid rgba(2, 7, 21, 0.2);
+  border-radius: 0.5rem;
+  width: 50vh;
+`
+
+const FieldSet = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 1rem;
+  border: none;
+`
+
+const InputEl = styled.input`
+  height: 2rem;
+  margin: 1.5rem 0rem;
+  font-size: 1rem;
+  padding-left: 0.2rem;
+  border: none;
+  border-bottom: 0.1rem solid rgba(2, 7, 21, 0.2);
+  background: #F3EEEE;
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid #2b66ff;
+  }
+`
+const textMap = {
+    login: 'Log in',
+    register: 'Sign up',
+    mypage: 'My page'
+  };
+
+const AuthForm = ({type}) => {
+
+    const text = textMap[type]
+
+    return (
+        <AuthFormBlock>
+          <h2>{text}</h2>
+
+        <Container>
+          <FieldSet>
+            <label>email</label>
+            <InputEl type="text" />
+            {type === 'register' && (
+                <>
+                <label>username</label>
+                <InputEl type="text" />
+                </>
+            )}
+            {type === 'mypage' && (
+                <>
+                <label>username</label>
+                <InputEl type="text" />
+                </>
+            )}
+            <label>PW</label>
+            <InputEl type="password" />
+            {type === 'register' && (
+                <>
+                <label>PW confirm</label>
+                <InputEl type="password" />
+                </>
+            )}
+            {type === 'mypage' && (
+                <>
+                <label>PW confirm</label>
+                <InputEl type="password" />
+                </>
+            )}
+          </FieldSet>
+          <Button sideButton>회원가입</Button>
+        </Container>
+
+        </AuthFormBlock>
+    )
+
+}
+
+export default AuthForm;
