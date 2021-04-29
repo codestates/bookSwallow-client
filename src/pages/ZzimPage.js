@@ -1,11 +1,8 @@
 import React from 'react';
+import ZzimList from '../components/zzim/ZzimList';
 
 function ZzimPage() {
-  return (
-    <div>
-      <div>찜페이지입니다.</div>
-    </div>
-  );
+  return <ZzimList />;
 }
 
 export default ZzimPage;
