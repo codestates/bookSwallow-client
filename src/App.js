@@ -15,10 +15,7 @@ import BookDetailPage from './pages/BookDetailPage';
 
 import Mypage from './pages/MyPage';
 
-
-const Wrapper = styled(Responsive)`
-
-`;
+const Wrapper = styled(Responsive)``;
 
 function App() {
   return (
