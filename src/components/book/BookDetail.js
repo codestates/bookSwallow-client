@@ -1,10 +1,10 @@
 import React from 'react';
-import BookItem from './BookItem';
 import styled from 'styled-components';
+import { darken, lighten } from 'polished';
 
 const data = [
   {
-    id: 1,
+    key: 1,
     title: 'CODE 코드 (반양장) - 하드웨어와 소프트웨어에 숨어 있는 언어',
     authors: '찰스 펫졸드 지음, 김현규 옮김',
     url:
@@ -15,12 +15,10 @@ const data = [
     cover_img:
       'https://image.aladin.co.kr/product/5305/11/cover/8966261256_1.jpg',
     price: 25000,
-    like_count: 10,
-    createdAt: '2021-04-28T05:06:59.000Z',
-    updatedAt: '2021-04-28T05:06:59.000Z',
+    like_count: 0,
   },
   {
-    id: 2,
+    key: 2,
     title: '객체지향의 사실과 오해 - 역할, 책임, 협력 관점에서 본 객체지향',
     authors: '조영호 지음',
     url:
@@ -34,7 +32,7 @@ const data = [
     like_count: 0,
   },
   {
-    id: 3,
+    key: 3,
     title: '독하게 시작하는 C 프로그래밍 - 널널한 개발자의 C 언어 마스터클래스',
     authors: '최호성 지음',
     url:
@@ -48,7 +46,7 @@ const data = [
     like_count: 0,
   },
   {
-    id: 4,
+    key: 4,
     title: '윤성우의 열혈 자료구조 - C언어를 이용한 자료구조 학습서',
     authors: '윤성우 지음',
     url:
@@ -63,19 +61,106 @@ const data = [
   },
 ];
 
-const Spacer = styled.div`
-  height: 6rem;
+const FlexContainer = styled.div`
+  display: flex;
 `;
 
-function BookList() {
+const ImgDiv = styled.div`
+  width: 200px;
+  height: 300px;
+
+  flex: 1 0 200px;
+
+  overflow: hidden;
+  border-radius: 5px;
+  border: 0.5px solid #adb5bd;
+
+  margin-right: 3rem;
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const ContentDiv = styled.div`
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 0.5px solid #adb5bd;
+  }
+  p {
+    margin-bottom: 1rem;
+    & > span {
+      color: #777777;
+    }
+  }
+
+  .description {
+    margin-top: 2rem;
+    border-top: 0.5px solid #adb5bd;
+    padding-top: 1rem;
+    line-height: 1.5rem;
+  }
+`;
+
+const Button = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  height: 2.25rem;
+  font-size: 1rem;
+
+  background: #f06595;
+
+  &:hover {
+    background: ${lighten(0.1, '#f06595')};
+  }
+
+  &:active {
+    background: ${darken(0.1, '#f06595')};
+  }
+`;
+
+function BookDetail({ id }) {
+  const paramId = parseInt(id);
+  const bookList = data.filter((book) => (book.key === paramId ? book : false));
+  const [book] = bookList;
   return (
-    <>
-      <Spacer />
-      {data.map((book) => (
-        <BookItem key={book.id} book={book} />
-      ))}
-    </>
+    <FlexContainer>
+      <ImgDiv>
+        <img src={book.cover_img} alt={book.title} />
+      </ImgDiv>
+      <ContentDiv>
+        <h1>CODE 코드 (반양장) - 하드웨어와 소프트웨어에 숨어 있는 언어</h1>
+        <p className="title">
+          <span>저자</span> 찰스 펫졸드 지음, 김현규 옮김
+        </p>
+        <p className="publisher">
+          <span>출판사</span> 인사이트
+        </p>
+        <p className="price">
+          <span>가격</span> 25000
+        </p>
+        <Button>ZZIM</Button>
+        <p className="description">
+          다른 사람들과 의사소통하기 위하여 언어를 조작하고 새로운 의미를
+          만들어내는 독창적인 방법들을 우리에게 보여주고 있다. 또한 다른
+          사람들과 의사소통을 하려는 인간의 강렬한 욕망이 어떻게, 지난 두 세기
+          동안 기술적인 발전을 이루어냈는지 독득한 시각을 제공해 주고 있다.
+        </p>
+      </ContentDiv>
+    </FlexContainer>
   );
 }
 
-export default BookList;
+export default BookDetail;

@@ -11,8 +11,13 @@ import ZzimPage from './pages/ZzimPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
+import BookDetailPage from './pages/BookDetailPage';
+
+import Mypage from './pages/MyPage';
+
+
 const Wrapper = styled(Responsive)`
-  /* background-color: pink; */
+
 `;
 
 function App() {
@@ -21,11 +26,13 @@ function App() {
       <GlobalStyles />
       <Header></Header>
       <Wrapper>
-        <Route component={MainPage} path="/" exact></Route>
-        <Route component={ListPage} path="/lists" />
+        <Route component={MainPage} path="/" exact />
+        <Route component={ListPage} path="/books" exact />
         <Route component={ZzimPage} path="/zzims" />
         <Route component={LoginPage} path="/login" />
         <Route component={RegisterPage} path="/signup" />
+        <Route component={BookDetailPage} path="/books/:id" />
+        <Route component={Mypage} path="/mypage" />
       </Wrapper>
     </>
   );
