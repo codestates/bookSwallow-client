@@ -10,7 +10,7 @@ const AuthFormBlock = styled.div`
         color: black;
         margin-bottom: 1rem;
         font-size: 1.5rem;
-        font-weight: 
+        font-weight: 3rem;
     }
 `;
 
@@ -47,9 +47,9 @@ const InputEl = styled.input`
   }
 `
 const textMap = {
-    login: 'Log in',
-    register: 'Sign up',
-    mypage: 'My page'
+    login: ['Log in','로그인','카카오','구글'],
+    register: ['Sign up','회원가입'],
+    mypage: ['My page','수정','탈퇴하기'],
   };
 
 const AuthForm = ({type}) => {
@@ -58,7 +58,7 @@ const AuthForm = ({type}) => {
 
     return (
         <AuthFormBlock>
-          <h2>{text}</h2>
+          <h2>{text[0]}</h2>
 
         <Container>
           <FieldSet>
@@ -91,7 +91,26 @@ const AuthForm = ({type}) => {
                 </>
             )}
           </FieldSet>
-          <Button sideButton>회원가입</Button>
+          {type === 'login' && (
+              <>
+                <Button sideButton>{text[1]}</Button>
+                <div>
+                    <Button sideButton>{text[2]}</Button>
+                    <Button sideButton>{text[3]}</Button>
+                </div>
+              </>
+          )}
+          {type === 'register' && (
+            <Button sideButton>회원가입</Button>
+          )}
+          {type === 'mypage' && (
+              <>
+                <div>
+                    <Button sideButton>{text[1]}</Button>
+                    <Button sideButton>{text[2]}</Button>
+                </div>
+              </>
+          )}
         </Container>
 
         </AuthFormBlock>
