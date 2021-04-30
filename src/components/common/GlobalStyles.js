@@ -15,6 +15,6 @@ const GlobalStyles = createGlobalStyle`
         font-size: 16px;
         background-color: #f4f4f4
     }
- `;
+`;
 
 export default GlobalStyles;
