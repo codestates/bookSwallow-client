@@ -9,6 +9,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   background-color: #f4f4f4;
   border-bottom: 2px solid #adb5bd;
+  z-index: 1;
   a {
     font-size: 1.5rem;
   }
@@ -51,7 +52,7 @@ function Header() {
           </Link>
           <Right>
             <div className="right">
-              <Link to="/lists">list</Link>
+              <Link to="/books">list</Link>
               <Link to="/zzims">zzim</Link>
             </div>
             <div className="left">
