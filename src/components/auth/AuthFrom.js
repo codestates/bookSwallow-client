@@ -5,15 +5,13 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 
 const AuthFormBlock = styled.div`
-
-    h2 {
-        margin: 3rem;
-        color: black;
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-        font-weight: 3rem;
-    }
-
+  h2 {
+    margin: 3rem;
+    color: black;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 3rem;
+  }
 `;
 
 const Container = styled.div`
@@ -49,12 +47,10 @@ const InputEl = styled.input`
   }
 `;
 const textMap = {
-
-    login: ['Log in','로그인','카카오','구글'],
-    register: ['Sign up','회원가입'],
-    mypage: ['My page','수정','탈퇴하기'],
-  };
-
+  login: ['Log in', '로그인', '카카오', '구글'],
+  register: ['Sign up', '회원가입'],
+  mypage: ['My page', '수정', '탈퇴하기'],
+};
 
 const AuthForm = ({ type }) => {
   const text = textMap[type];
@@ -64,7 +60,6 @@ const AuthForm = ({ type }) => {
     password: '',
   });
 
-
   const loginOnChange = (e) => {
     const { value, name } = e.target;
     setLoginInputs({
@@ -72,7 +67,6 @@ const AuthForm = ({ type }) => {
       [name]: value,
     });
   };
-
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -116,30 +110,29 @@ const AuthForm = ({ type }) => {
             )}
           </FieldSet>
           {type === 'login' && (
-              <>
-                <Button sideButton  type="submit">{text[1]}</Button>
-                <div>
-                    <Button sideButton>{text[2]}</Button>
-                    <Button sideButton>{text[3]}</Button>
-                </div>
-              </>
+            <>
+              <Button sideButton type="submit">
+                {text[1]}
+              </Button>
+              <div>
+                <Button sideButton>{text[2]}</Button>
+                <Button sideButton>{text[3]}</Button>
+              </div>
+            </>
           )}
-          {type === 'register' && (
-            <Button sideButton>회원가입</Button>
-          )}
+          {type === 'register' && <Button sideButton>회원가입</Button>}
           {type === 'mypage' && (
-              <>
-                <div>
-                    <Button sideButton>{text[1]}</Button>
-                    <Button sideButton>{text[2]}</Button>
-                </div>
-              </>
+            <>
+              <div>
+                <Button sideButton>{text[1]}</Button>
+                <Button sideButton>{text[2]}</Button>
+              </div>
+            </>
           )}
-        </Container>
         </form>
-        </AuthFormBlock>
-    )
-
-}
+      </Container>
+    </AuthFormBlock>
+  );
+};
 
 export default AuthForm;
