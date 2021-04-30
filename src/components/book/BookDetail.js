@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { darken, lighten } from 'polished';
 
 const data = [
   {
@@ -70,6 +71,10 @@ const ImgDiv = styled.div`
 
   flex: 1 0 200px;
 
+  overflow: hidden;
+  border-radius: 5px;
+  border: 0.5px solid #adb5bd;
+
   margin-right: 3rem;
   & > img {
     width: 100%;
@@ -80,8 +85,49 @@ const ImgDiv = styled.div`
 const ContentDiv = styled.div`
   h1 {
     font-size: 2.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 0.5px solid #adb5bd;
   }
   p {
+    margin-bottom: 1rem;
+    & > span {
+      color: #777777;
+    }
+  }
+
+  .description {
+    margin-top: 2rem;
+    border-top: 0.5px solid #adb5bd;
+    padding-top: 1rem;
+    line-height: 1.5rem;
+  }
+`;
+
+const Button = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  height: 2.25rem;
+  font-size: 1rem;
+
+  background: #f06595;
+
+  &:hover {
+    background: ${lighten(0.1, '#f06595')};
+  }
+
+  &:active {
+    background: ${darken(0.1, '#f06595')};
   }
 `;
 
@@ -93,19 +139,25 @@ function BookDetail({ id }) {
     <FlexContainer>
       <ImgDiv>
         <img src={book.cover_img} alt={book.title} />
-        <div>찜 등록</div>
       </ImgDiv>
       <ContentDiv>
         <h1>CODE 코드 (반양장) - 하드웨어와 소프트웨어에 숨어 있는 언어</h1>
-        <p>찰스 펫졸드 지음, 김현규 옮김</p>
-        <p>
+        <p className="title">
+          <span>저자</span> 찰스 펫졸드 지음, 김현규 옮김
+        </p>
+        <p className="publisher">
+          <span>출판사</span> 인사이트
+        </p>
+        <p className="price">
+          <span>가격</span> 25000
+        </p>
+        <Button>ZZIM</Button>
+        <p className="description">
           다른 사람들과 의사소통하기 위하여 언어를 조작하고 새로운 의미를
           만들어내는 독창적인 방법들을 우리에게 보여주고 있다. 또한 다른
           사람들과 의사소통을 하려는 인간의 강렬한 욕망이 어떻게, 지난 두 세기
           동안 기술적인 발전을 이루어냈는지 독득한 시각을 제공해 주고 있다.
         </p>
-        <p>인사이트</p>
-        <p>25000</p>
       </ContentDiv>
     </FlexContainer>
   );
