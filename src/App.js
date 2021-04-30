@@ -10,10 +10,14 @@ import ListPage from './pages/ListPage';
 import ZzimPage from './pages/ZzimPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+
 import BookDetailPage from './pages/BookDetailPage';
 
+import Mypage from './pages/MyPage';
+
+
 const Wrapper = styled(Responsive)`
-  /* background-color: pink; */
+
 `;
 
 function App() {
@@ -28,6 +32,7 @@ function App() {
         <Route component={LoginPage} path="/login" />
         <Route component={RegisterPage} path="/signup" />
         <Route component={BookDetailPage} path="/books/:id" />
+        <Route component={Mypage} path="/mypage" />
       </Wrapper>
     </>
   );

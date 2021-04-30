@@ -1,10 +1,12 @@
 import React from 'react';
+import AuthTemplate from '../containers/auth/AutoTemplate'
+import MypageForm from '../containers/auth/MypageForm'
 
 function MyPage() {
   return (
-    <div>
-      <div>마이페이지입니다.</div>
-    </div>
+    <AuthTemplate>
+      <MypageForm></MypageForm>
+    </AuthTemplate>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// 버튼 임폴트해와야함. import Button from ~~
+import Button from './Button'
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
 
@@ -54,6 +54,7 @@ function Header() {
             <div className="right">
               <Link to="/books">list</Link>
               <Link to="/zzims">zzim</Link>
+              <Link to="/mypage">mypage</Link>
             </div>
             <div className="left">
               <Link to="/login">Log in</Link>
