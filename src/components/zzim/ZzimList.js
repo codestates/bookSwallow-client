@@ -1,8 +1,9 @@
 import React from 'react';
-import BookItem from './BookItem';
+import ZzimItem from './ZzimItem';
 import styled from 'styled-components';
+import Responsive from '../common/Responsive';
 
-const data = [
+const zzims = [
   {
     key: 1,
     imgUrl: 'https://image.aladin.co.kr/product/5305/11/cover/8966261256_1.jpg',
@@ -49,19 +50,22 @@ const data = [
   },
 ];
 
-const Spacer = styled.div`
-  height: 6rem;
+const FlexContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 1.5rem;
+  padding-left: 4rem;
 `;
 
-function BookList() {
+function ZzimList() {
   return (
-    <>
-      <Spacer />
-      {data.map((book) => (
-        <BookItem key={book.key} book={book} />
+    <FlexContainer>
+      {zzims.map((zzim) => (
+        <ZzimItem key={zzim.key} zzim={zzim} />
       ))}
-    </>
+    </FlexContainer>
   );
 }
 
-export default BookList;
+export default ZzimList;
