@@ -6,6 +6,7 @@ import Button from '../common/Button';
 
 const AuthFormBlock = styled.div`
 
+
   h2 {
     margin: 3rem;
     color: #111;
@@ -83,12 +84,10 @@ const InputEl = styled.input`
 
 
 const textMap = {
-
-    login: ['Log in','로그인','카카오','구글'],
-    register: ['Sign up','회원가입'],
-    mypage: ['My page','수정','탈퇴하기'],
-  };
-
+  login: ['Log in', '로그인', '카카오', '구글'],
+  register: ['Sign up', '회원가입'],
+  mypage: ['My page', '수정', '탈퇴하기'],
+};
 
 //올바른 이메일 형식
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -146,7 +145,6 @@ const AuthForm = ({ type, onSubmitHand }) => {
       ...state, formErrors, [name]: value, 
     });
   };
-
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -245,6 +243,7 @@ const AuthForm = ({ type, onSubmitHand }) => {
             {formErrors.PW_confirm.length > 0 && (
               <span className="errorMessage">{formErrors.PW_confirm}</span>
             )}
+
             </>
         )}
       </FieldSet>
@@ -270,8 +269,11 @@ const AuthForm = ({ type, onSubmitHand }) => {
               >
                 회원가입
             </Button>
+
           )}
+          {type === 'register' && <Button sideButton>회원가입</Button>}
           {type === 'mypage' && (
+
               <>
                 <div>
                     <Button sideButton type="submit">{text[1]}</Button>
@@ -286,6 +288,7 @@ const AuthForm = ({ type, onSubmitHand }) => {
 )
 
 }
+
 
 export default AuthForm;
 
