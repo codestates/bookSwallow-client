@@ -30,13 +30,17 @@ const buttonStyle = css`
       &:active {
         background: ${darken(0.1, palette.gray)};
       }
-      & + & {
-        margin-left: 2rem;
-        margin-top: 1rem;
-      }
+    `}
+  ${(props) =>
+    props.fullWidth &&
+    css`
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 600;
     `}
 `;
-
 
 const StyledButton = styled.button`
   ${buttonStyle};
