@@ -1,58 +1,59 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-// import palette from '../../lib/styles/palette'
+import styled, { css } from 'styled-components';
+import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 
 const AuthFormBlock = styled.div`
-
-
   h2 {
-    margin: 3rem;
     color: #111;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    font-weight: 3rem;
+    font-size: 2rem;
+    font-weight: 800;
     text-align: center;
-    font-family: sans-serif;
   }
-
-  label {
-    font-size: 1.2rem;
-    margin-bottom: 0.6rem;
-    color: #222;
-    font-weight: lighter;
-    margin-top:1.5rem;
-  }
-      
-  background-color: #ffffff;
-  box-shadow: 0px 10px 50px #555;
-  border-radius: 1rem;
-  margin-top: 1.5rem;
-
   .errorMessage {
     color: red;
-    font-size: 0.75em;
-    display: relative;
+    font-size: 0.8em;
   }
-  
+`;
+
+const Title = styled.span`
+  position: relative;
+  ::after {
+    position: absolute;
+    bottom: 4px;
+    left: -7px;
+    display: inline-block;
+    width: 100%;
+    height: 16px;
+    padding: 0 7px;
+    background: ${palette.brown};
+    content: '';
+    z-index: -1;
+  }
+  ${(props) =>
+    props.sns &&
+    css`
+      ::after {
+        top: 5px;
+      }
+      font-size: 1.2rem;
+      font-weight: 500;
+    `}
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 0.5rem;
   width: 50vh;
-
 `;
 
 const FieldSet = styled.div`
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 1rem;
   border: none;
 
   .error {
@@ -60,32 +61,75 @@ const FieldSet = styled.div`
   }
 `;
 
+const WrapperInput = styled.div`
+  position: relative;
+  margin-bottom: 20px;
+`;
+
 const InputEl = styled.input`
-
-  height: 2rem;
+  height: 80px;
+  width: 100%;
   font-size: 1rem;
-  padding-left: 0.2rem;
-  border: 1px solid #cfcfcf;
-  border-bottom: 0.1rem solid rgba(2, 7, 21, 0.2);
-  margin-bottom:0.25rem;
-  border-radius: 0.25rem;
-
+  padding: 36px 19px 28px;
+  border: 1px solid ${palette.border};
   ::placeholder {
-  font-size: 0.8rem;
-  font-weight: lighter;
-  color: #999;
+    font-size: 0.8rem;
+    font-weight: lighter;
+    color: #999;
   }
-
   &:focus {
     outline: none;
     border-bottom: 2px solid #2b66ff;
   }
 `;
 
+const LabelText = styled.label`
+  position: absolute;
+  left: 19px;
+  top: 33px;
+  color: #888;
+  font-size: 15px;
+  line-height: 1;
+  transition: all 0.4s;
+  z-index: 1;
+  ${InputEl}:focus ~ & {
+    top: 19px;
+    font-size: 12px;
+  }
+  ${InputEl}:valid ~ & {
+    top: 19px;
+    font-size: 12px;
+  }
+`;
+
+const SnsButton = styled.div`
+  display: flex;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  div {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    img {
+      cursor: pointer;
+    }
+    img + img {
+      margin-right: 20px;
+    }
+  }
+`;
+
+const Line = styled.div`
+  border-bottom: 2px solid ${palette.border};
+  opacity: 0.3;
+  margin: 1.5rem 0;
+  width: 100%;
+`;
 
 const textMap = {
-  login: ['Log in', '로그인', '카카오', '구글'],
-  register: ['Sign up', '회원가입'],
+  login: ['로그인', '로그인', '카카오', '구글'],
+  register: ['회원가입', '회원가입'],
   mypage: ['My page', '수정', '탈퇴하기'],
 };
 
@@ -97,199 +141,207 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]
 
 //비밀번호 일치 여부 확인
 const isMatch = (password1, password2) => {
-    return password1 !== password2;
-  }
-
+  return password1 !== password2;
+};
 
 const AuthForm = ({ type, onSubmitHand }) => {
   const text = textMap[type];
 
   const [state, setState] = useState({
     formErrors: {
-      username:"",
-      email: "",
-      password: "",
-      PW_confirm:"",
-    }
+      username: '',
+      email: '',
+      password: '',
+      PW_confirm: '',
+    },
   });
 
   const loginOnChange = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const { value, name } = e.target;
-    let formErrors = { ...state.formErrors }; 
+    let formErrors = { ...state.formErrors };
 
     switch (name) {
-        case "username":
-          formErrors.username =
-            value.length < 3 ? "3글자 이상 입력해주세요" : "";
-          break;
-        case "PW_confirm":
-          formErrors.PW_confirm =
-          isMatch(value, password) ? "비밀번호가 일치하지 않습니다" : "";
-          break;
-        case "email":
-          formErrors.email = emailRegex.test(value)
-            ? ""
-            : "올바른 이메일 형식이 아닙니다";
-          break;
-        case "password":
-          formErrors.password = passwordRegex.test(value)
-            ? ""
-            : "8글자 이상, 알파벳과 숫자 및 특수문자 1개 이상 포함해주세요";
-          break;
-        default:
-          break;
-      }
+      case 'username':
+        formErrors.username = value.length < 3 ? '3글자 이상 입력해주세요' : '';
+        break;
+      case 'PW_confirm':
+        formErrors.PW_confirm = isMatch(value, password)
+          ? '비밀번호가 일치하지 않습니다'
+          : '';
+        break;
+      case 'email':
+        formErrors.email = emailRegex.test(value)
+          ? ''
+          : '올바른 이메일 형식이 아닙니다';
+        break;
+      case 'password':
+        formErrors.password = passwordRegex.test(value)
+          ? ''
+          : '8글자 이상, 알파벳과 숫자 및 특수문자 1개 이상 포함해주세요';
+        break;
+      default:
+        break;
+    }
 
     setState({
-      ...state, formErrors, [name]: value, 
+      ...state,
+      formErrors,
+      [name]: value,
     });
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    onSubmitHand(state)
+    onSubmitHand(state);
   };
 
-  const {email, username, password, PW_confirm, formErrors} = state
+  const { email, username, password, PW_confirm, formErrors } = state;
 
   return (
     <AuthFormBlock>
-      <h2>{text[0]}</h2>
+      <h2>
+        <Title>{text[0]}</Title>
+      </h2>
 
-    <form
-      onSubmit={onSubmitHandler}>
-    <Container>
-      <FieldSet>
-        <>
-        <label>email</label>
-        <InputEl 
-        className={formErrors.email.length > 0 ? "error" : null}
-        type="text"
-        name="email"
-        onChange={loginOnChange}
-        value={email || ''}
-        />
-        {formErrors.email.length > 0 && (
-          <span className="errorMessage">{formErrors.email}</span>
-        )}
-        </>
-        {type === 'register' && (
-            <>
-            <label>username</label>
-            <InputEl 
-            className={formErrors.username.length > 0 ? "error" : null}
-            type="text"
-            name="username"
-            onChange={loginOnChange}
-            value={username || ''}
-            />
-            {formErrors.username.length > 0 && (
-              <span className="errorMessage">{formErrors.username}</span>
-            )}
-            </>
-        )}
-        {type === 'mypage' && (
-            <>
-            <label>username</label>
-            <InputEl 
-            className={formErrors.username.length > 0 ? "error" : null}
-            type="text"
-            name="username"
-            onChange={loginOnChange}
-            value={username || ''}
-            />
-            {formErrors.username.length > 0 && (
-              <span className="errorMessage">{formErrors.username}</span>
-            )}
-            </>
-        )}
-        <label>PW</label>
-        <InputEl 
-        className={formErrors.password.length > 0 ? "error" : null}
-        type="password"
-        name="password"
-        onChange={loginOnChange}
-        value={password || ''}
-        />
-        {formErrors.password.length > 0 && (
-          <span className="errorMessage">{formErrors.password}</span>
-        )}
-        {type === 'register' && (
-            <>
-            <label>PW confirm</label>
-            <InputEl
-            className={formErrors.PW_confirm.length > 0 ? "error" : null}
-            type="password"
-            name="PW_confirm"
-            onChange={loginOnChange}
-            value={PW_confirm || ''}
-            />
-            {formErrors.PW_confirm.length > 0 && (
-              <span className="errorMessage">{formErrors.PW_confirm}</span>
-            )}
-            </>
-        )}
-        {type === 'mypage' && (
-            <>
-            <label>PW confirm</label>
-            <InputEl 
-            className={formErrors.PW_confirm.length > 0 ? "error" : null}
-            type="password"
-            name="PW_confirm"
-            onChange={loginOnChange}
-            value={PW_confirm || ''}
-            />
-            {formErrors.PW_confirm.length > 0 && (
-              <span className="errorMessage">{formErrors.PW_confirm}</span>
-            )}
+      <Line />
 
-            </>
-        )}
-      </FieldSet>
-      {type === 'login' && (
-              <>
-                <Button 
-                  sideButton 
-                  type="submit"
-                >
-                  {text[1]}
-                </Button>
+      <form onSubmit={onSubmitHandler}>
+        <Container>
+          <FieldSet>
+            <WrapperInput>
+              <InputEl
+                className={formErrors.email.length > 0 ? 'error' : null}
+                type="text"
+                name="email"
+                onChange={loginOnChange}
+                value={email || ''}
+                required
+              />
+              {formErrors.email.length > 0 && (
+                <span className="errorMessage">{formErrors.email}</span>
+              )}
+              <LabelText>이메일</LabelText>
+            </WrapperInput>
+            {type === 'register' && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.username.length > 0 ? 'error' : null}
+                  type="text"
+                  name="username"
+                  onChange={loginOnChange}
+                  value={username || ''}
+                  required
+                />
+                {formErrors.username.length > 0 && (
+                  <span className="errorMessage">{formErrors.username}</span>
+                )}
+                <LabelText>이름</LabelText>
+              </WrapperInput>
+            )}
+            {type === 'mypage' && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.username.length > 0 ? 'error' : null}
+                  type="text"
+                  name="username"
+                  onChange={loginOnChange}
+                  value={username || ''}
+                />
+                {formErrors.username.length > 0 && (
+                  <span className="errorMessage">{formErrors.username}</span>
+                )}
+                <LabelText>이름</LabelText>
+              </WrapperInput>
+            )}
+            <WrapperInput>
+              <InputEl
+                className={formErrors.password.length > 0 ? 'error' : null}
+                type="password"
+                name="password"
+                onChange={loginOnChange}
+                value={password || ''}
+                required
+              />
+              {formErrors.password.length > 0 && (
+                <span className="errorMessage">{formErrors.password}</span>
+              )}
+              <LabelText>비밀번호</LabelText>
+            </WrapperInput>
+            {type === 'register' && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.PW_confirm.length > 0 ? 'error' : null}
+                  type="password"
+                  name="PW_confirm"
+                  onChange={loginOnChange}
+                  value={PW_confirm || ''}
+                  required
+                />
+                {formErrors.PW_confirm.length > 0 && (
+                  <span className="errorMessage">{formErrors.PW_confirm}</span>
+                )}
+                <LabelText>비밀번호 확인</LabelText>
+              </WrapperInput>
+            )}
+            {type === 'mypage' && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.PW_confirm.length > 0 ? 'error' : null}
+                  type="password"
+                  name="PW_confirm"
+                  onChange={loginOnChange}
+                  value={PW_confirm || ''}
+                  required
+                />
+                {formErrors.PW_confirm.length > 0 && (
+                  <span className="errorMessage">{formErrors.PW_confirm}</span>
+                )}
+                <LabelText>비밀번호 확인</LabelText>
+              </WrapperInput>
+            )}
+          </FieldSet>
+          {type === 'login' && (
+            <>
+              <Button sideButton fullWidth type="submit">
+                {text[1]}
+              </Button>
+              <Line />
+              <SnsButton>
+                <Title sns>SNS 계정 로그인</Title>
                 <div>
-                    <Button sideButton type="submit">{text[2]}</Button>
-                    <Button sideButton type="submit">{text[3]}</Button>
+                  <img src="/images/sns-google.png" alt="" />
+                  <img src="/images/sns-kakao.png" alt="" />
                 </div>
-              </>
+              </SnsButton>
+            </>
           )}
           {type === 'register' && (
-            <Button 
-              sideButton 
+            <Button
+              sideButton
               type="submit"
-              className={formErrors.buttonBolean ? "buttonAtv" : null}
-              >
-                회원가입
+              className={formErrors.buttonBolean ? 'buttonAtv' : null}
+              fullWidth
+            >
+              회원가입
             </Button>
-
           )}
-          {type === 'register' && <Button sideButton>회원가입</Button>}
           {type === 'mypage' && (
-
-              <>
-                <div>
-                    <Button sideButton type="submit">{text[1]}</Button>
-                    <Button sideButton type="submit">{text[2]}</Button>
-                </div>
-              </>
+            <>
+              <div>
+                <Button sideButton type="submit">
+                  {text[1]}
+                </Button>
+                <Button sideButton type="submit">
+                  {text[2]}
+                </Button>
+              </div>
+            </>
           )}
-    </Container>
-    </form>
-
+        </Container>
+      </form>
     </AuthFormBlock>
-)
-
-}
-
+  );
+};
 
 export default AuthForm;
-
-
