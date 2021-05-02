@@ -31,15 +31,6 @@ const Title = styled.span`
     content: '';
     z-index: -1;
   }
-  ${(props) =>
-    props.sns &&
-    css`
-      ::after {
-        top: 5px;
-      }
-      font-size: 1.2rem;
-      font-weight: 500;
-    `}
 `;
 
 const Container = styled.div`
@@ -102,29 +93,27 @@ const LabelText = styled.label`
   }
 `;
 
-const SnsButton = styled.div`
-  display: flex;
-  position: relative;
-  width: 100%;
-  align-items: center;
-  div {
-    flex: 1;
-    display: flex;
-    flex-direction: row-reverse;
-    img {
-      cursor: pointer;
-    }
-    img + img {
-      margin-right: 20px;
-    }
-  }
-`;
-
 const Line = styled.div`
   border-bottom: 2px solid ${palette.border};
   opacity: 0.3;
   margin: 1.5rem 0;
   width: 100%;
+`;
+
+const WithdrawBtn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+  button {
+    border: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 `;
 
 const textMap = {
@@ -302,19 +291,9 @@ const AuthForm = ({ type, onSubmitHand }) => {
             )}
           </FieldSet>
           {type === 'login' && (
-            <>
-              <Button sideButton fullWidth type="submit">
-                {text[1]}
-              </Button>
-              <Line />
-              <SnsButton>
-                <Title sns>SNS 계정 로그인</Title>
-                <div>
-                  <img src="/images/sns-google.png" alt="" />
-                  <img src="/images/sns-kakao.png" alt="" />
-                </div>
-              </SnsButton>
-            </>
+            <Button sideButton fullWidth type="submit">
+              {text[1]}
+            </Button>
           )}
           {type === 'register' && (
             <Button
@@ -327,16 +306,14 @@ const AuthForm = ({ type, onSubmitHand }) => {
             </Button>
           )}
           {type === 'mypage' && (
-            <>
-              <div>
-                <Button sideButton type="submit">
-                  {text[1]}
-                </Button>
-                <Button sideButton type="submit">
-                  {text[2]}
-                </Button>
-              </div>
-            </>
+            <div style={{ width: '100%' }}>
+              <Button sideButton fullWidth type="submit">
+                {text[1]}
+              </Button>
+              <WithdrawBtn>
+                <button>{text[2]}</button>
+              </WithdrawBtn>
+            </div>
           )}
         </Container>
       </form>

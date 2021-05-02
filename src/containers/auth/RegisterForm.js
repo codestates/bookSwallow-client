@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import AuthForm from '../../components/auth/AuthFrom';
+import { useSelector, useDispatch } from 'react-redux';
+import { registerReq, resetRegister } from '../../modules/auth';
+import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
-const RegisterForm = () => {
+const ErrorText = styled.div`
+  margin-top: 10px;
+  color: red;
+`;
 
-  const [registerInput,setResisterInput] = useState({
-    email: '',
-    username: '',
-    password: '',
-    PW_confirm: '',
-  })
+const RegisterForm = ({ history }) => {
+  const dispatch = useDispatch();
+  const { register, registerError } = useSelector(({ auth }) => ({
+    register: auth.register,
+    registerError: auth.registerError,
+  }));
+  const [errorMsg, setErrorMsg] = useState('');
 
   const onSubmitHand = (data) => {
-    if(
+    if (
       data.email.length > 0 &&
       data.password.length > 0 &&
       data.username.length > 0 &&
@@ -21,19 +29,43 @@ const RegisterForm = () => {
       data.formErrors.username.length === 0 &&
       data.formErrors.PW_confirm.length === 0
     ) {
-        setResisterInput(data)
-      } else {
-          return
-        }
-  }
+      const { email, username, password } = data;
+      dispatch(registerReq({ email, username, password }));
+    } else {
+      return;
+    }
+  };
 
-  console.log("회원가입 정보",registerInput)
+  useEffect(() => {
+    if (registerError) {
+      // console.log('오류 발생');
+      // console.log(registerError);
+      if (registerError === 'already exists') {
+        setErrorMsg(
+          '이미 가입된 이메일 주소입니다. 다른 이메일을 입력하여 주세요.',
+        );
+      }
+      return;
+    }
+    if (register) {
+      setErrorMsg('');
+      console.log(register);
+      dispatch(resetRegister());
+      alert('회원가입 성공'); // 모달창으로 교체 필요
+      history.push('/login');
+    }
+  }, [register, registerError, errorMsg, history, dispatch]);
 
-  return <AuthForm 
-    type="register"
-    onSubmitHand={onSubmitHand}
-  >
-  </AuthForm>;
+  useEffect(() => {
+    setErrorMsg('');
+  }, []);
+
+  return (
+    <>
+      <AuthForm type="register" onSubmitHand={onSubmitHand}></AuthForm>
+      <ErrorText>{errorMsg}</ErrorText>
+    </>
+  );
 };
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

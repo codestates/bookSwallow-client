@@ -4,6 +4,7 @@ import Button from './Button';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
+import { useSelector } from 'react-redux';
 
 const HeaderBlock = styled.div`
   position: fixed;
@@ -57,6 +58,11 @@ const Spacer = styled.div`
 `;
 
 function Header() {
+  const { login, loginError, isLogin, token } = useSelector(({ user }) => ({
+    isLogin: user.isLogin,
+    token: user.token,
+  }));
+
   return (
     <>
       <HeaderBlock>
@@ -72,15 +78,25 @@ function Header() {
               <StyledLink to="/zzims">
                 <span className="text">ZZIM</span>
               </StyledLink>
-              {/* <StyledLink to="/mypage">mypage</StyledLink> */}
             </div>
             <div className="left">
-              <StyledLink to="/login">
-                <span className="text">로그인</span>
-              </StyledLink>
-              <StyledLink to="/signup">
-                <Button>회원가입</Button>
-              </StyledLink>
+              {isLogin ? (
+                <>
+                  <StyledLink to="/mypage">
+                    <span className="text">마이페이지</span>
+                  </StyledLink>
+                  <StyledLink to="/">로그아웃</StyledLink>
+                </>
+              ) : (
+                <>
+                  <StyledLink to="/login">
+                    <span className="text">로그인</span>
+                  </StyledLink>
+                  <StyledLink to="/signup">
+                    <Button>회원가입</Button>
+                  </StyledLink>
+                </>
+              )}
             </div>
           </Right>
         </Wrapper>

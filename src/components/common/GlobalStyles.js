@@ -10,15 +10,17 @@ const GlobalStyles = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
-
     body {
         font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        /* font-size: 16px; */
+        font-size: 16px;
         background-color: ${palette.background};
-        min-height: 100%;
     }
-    html{
+    html, body{
         height: 100%;
+        overflow: auto;
+    }
+    #root{
+        min-height: 100%;
     }
  `;
 
