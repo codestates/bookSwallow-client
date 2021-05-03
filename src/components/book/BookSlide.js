@@ -6,23 +6,23 @@ import { lighten } from 'polished';
 
 const data = [
   {
-    key: 1,
+    id: 1,
     imgUrl: 'https://image.aladin.co.kr/product/5305/11/cover/8966261256_1.jpg',
   },
   {
-    key: 2,
+    id: 2,
     imgUrl: 'https://image.aladin.co.kr/product/6055/2/cover/8998139766_1.jpg',
   },
   {
-    key: 3,
+    id: 3,
     imgUrl: 'https://image.aladin.co.kr/product/6203/71/cover/k322433122_1.jpg',
   },
   {
-    key: 4,
+    id: 4,
     imgUrl: 'https://image.aladin.co.kr/product/1478/34/cover/8996094064_1.jpg',
   },
   {
-    key: 5,
+    id: 5,
     imgUrl: 'https://image.aladin.co.kr/product/1842/55/cover/8966260462_1.jpg',
   },
 ];
@@ -39,8 +39,11 @@ const Button = styled.div`
 
 const Container = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
+
+const Slider = styled.div``;
 
 function BookSlide() {
   const [images, setImages] = useState(data);
@@ -77,7 +80,7 @@ function BookSlide() {
         <MdKeyboardArrowLeft onClick={prevSlide}>이전</MdKeyboardArrowLeft>
       </Button>
       {imageSourcesToDisplay.map((book) => (
-        <BookSlideItem key={book.key} book={book}></BookSlideItem>
+        <BookSlideItem key={book.id} book={book}></BookSlideItem>
       ))}
       <Button>
         <MdKeyboardArrowRight onClick={nextSlide}>다음</MdKeyboardArrowRight>

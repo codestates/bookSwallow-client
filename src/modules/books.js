@@ -1,4 +1,4 @@
-import * as booksAPI from '../api/books';
+import * as booksAPI from '../lib/api/books';
 
 const GET_BOOKS = 'GET_BOOKS';
 const GET_BOOKS_SUCCESS = 'GET_BOOKS_SUCCESS';
@@ -34,7 +34,7 @@ export const getBook = (id) => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: GET_BOOK_SUCCESS,
+      type: GET_BOOK_ERROR,
       error,
     });
   }

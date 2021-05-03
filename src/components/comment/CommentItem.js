@@ -38,13 +38,14 @@ const Container = styled.div`
   }
 `;
 
-function CommentItem() {
+function CommentItem({ comment }) {
+  console.log(comment);
   return (
     <Container>
       <User>
         <div>
-          <p className="username">조태규</p>
-          <p className="created">방금 전</p>
+          <p className="username">{}</p>
+          <p className="created">{}</p>
         </div>
         <div>
           <span>수정</span>
@@ -52,7 +53,7 @@ function CommentItem() {
         </div>
       </User>
       <Comment>
-        <p>클린 코드 클린클린!!</p>
+        <p>ㅁㄴㅇㄴㅁㅇ</p>
       </Comment>
     </Container>
   );

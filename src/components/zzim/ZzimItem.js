@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdDeleteForever } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const RemoveButton = styled.div`
   position: absolute;
@@ -47,7 +48,9 @@ function ZzimItem({ zzim }) {
       <RemoveButton>
         <MdDeleteForever />
       </RemoveButton>
-      <img src={zzim.imgUrl} alt={zzim.key} />
+      <Link to={`/books/${zzim.key}`}>
+        <img src={zzim.imgUrl} alt={zzim.key} />
+      </Link>
     </ImgContainer>
   );
 }

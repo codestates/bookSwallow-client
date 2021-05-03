@@ -12,7 +12,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   background-color: ${palette.background};
   border-bottom: 1px solid ${palette.border};
-  z-index: 1;
+  z-index: 100;
   font-size: 1.25rem;
   /* background-color: rgba(242, 242, 242, 0.2);
   backdrop-filter: blur(30px); */

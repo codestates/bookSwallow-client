@@ -88,7 +88,7 @@ function BookItem({ book }) {
           </Link>
           <p>{book.description}</p>
         </BookContentDiv>
-        <LikeDiv like={true}>
+        <LikeDiv like={false}>
           <LikeUp>
             <MdThumbUp />
           </LikeUp>

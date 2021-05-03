@@ -6,10 +6,14 @@ import BooksContainer from '../containers/book/BooksContainer';
 
 const Container = styled.div``;
 
+const Spacer = styled.div`
+  height: 6rem;
+`;
 function ListPage() {
   return (
     <>
       <BookSlide></BookSlide>
+      <Spacer />
       <BooksContainer></BooksContainer>
     </>
   );
