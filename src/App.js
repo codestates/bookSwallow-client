@@ -1,27 +1,31 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import styled, { ThemProvider } from 'styled-components';
+
 import GlobalStyles from './components/common/GlobalStyles';
 import Responsive from './components/common/Responsive';
-import Header from './components/common/Header';
-
+import HeaderContainer from './containers/common/HeaderContainer';
 import MainPage from './pages/MainPage';
 import ListPage from './pages/ListPage';
 import ZzimPage from './pages/ZzimPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-
 import BookDetailPage from './pages/BookDetailPage';
-
 import Mypage from './pages/MyPage';
 
 const Wrapper = styled(Responsive)``;
 
+const Spacer = styled.div`
+  height: 6rem;
+`;
+
 function App() {
+  console.log(process.env.REACT_APP_SERVER_URI);
   return (
     <>
       <GlobalStyles />
-      <Header></Header>
+      <HeaderContainer />
+      <Spacer />
       <Wrapper>
         <Route component={MainPage} path="/" exact />
         <Route component={ListPage} path="/books" exact />

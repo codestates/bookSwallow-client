@@ -1,8 +1,8 @@
 import React from 'react';
-import ZzimList from '../components/zzim/ZzimList';
+import ZzimsContainer from '../containers/zzim/ZzimsContainer';
 
 function ZzimPage() {
-  return <ZzimList />;
+  return <ZzimsContainer />;
 }
 
 export default ZzimPage;

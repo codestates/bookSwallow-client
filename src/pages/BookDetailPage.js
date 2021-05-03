@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import CommentInput from '../components/comment/CommentInput';
-import CommentItem from '../components/comment/CommentItem';
 import BookContainer from '../containers/book/BookContainer';
+import CommentInputContainer from '../containers/comment/CommentInputContainer';
+import CommentsContainer from '../containers/comment/CommentsContainer';
 
 const Spacer = styled.div`
   height: 3rem;
@@ -15,9 +15,9 @@ function BookDetailPage({ match }) {
       <Spacer />
       <BookContainer id={params.id} />
       <Spacer />
-      <CommentInput />
+      <CommentInputContainer />
       <Spacer />
-      <CommentItem />
+      <CommentsContainer />
     </>
   );
 }

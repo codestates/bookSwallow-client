@@ -3,7 +3,7 @@ import ZzimItem from './ZzimItem';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 
-const zzims = [
+const DummyZzims = [
   {
     key: 1,
     imgUrl: 'https://image.aladin.co.kr/product/5305/11/cover/8966261256_1.jpg',
@@ -54,14 +54,14 @@ const FlexContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: 1.5rem;
   padding-left: 4rem;
 `;
 
-function ZzimList() {
+function ZzimList({ zzims }) {
+  console.log(zzims);
   return (
     <FlexContainer>
-      {zzims.map((zzim) => (
+      {DummyZzims.map((zzim) => (
         <ZzimItem key={zzim.key} zzim={zzim} />
       ))}
     </FlexContainer>
