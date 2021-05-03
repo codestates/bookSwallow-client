@@ -4,8 +4,7 @@ import Button from './Button';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../modules/user';
+import { useSelector } from 'react-redux';
 
 const HeaderBlock = styled.div`
   position: fixed;
@@ -58,16 +57,11 @@ const Spacer = styled.div`
   height: 5rem;
 `;
 
-function Header() {
-  const dispatch = useDispatch();
-  const { login, loginError, isLogin, token } = useSelector(({ user }) => ({
+function Header({ onLogout }) {
+  const { isLogin, token } = useSelector(({ user }) => ({
     isLogin: user.isLogin,
     token: user.token,
   }));
-
-  const loginHandler = (token) => {
-    dispatch(logoutUser(token));
-  };
 
   return (
     <>
@@ -91,7 +85,7 @@ function Header() {
                   <StyledLink to="/mypage">
                     <span className="text">마이페이지</span>
                   </StyledLink>
-                  <StyledLink to="/" onClick={() => loginHandler(token)}>
+                  <StyledLink to="/" onClick={() => onLogout()}>
                     로그아웃
                   </StyledLink>
                 </>

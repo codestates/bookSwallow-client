@@ -12,13 +12,16 @@ export const login = async ({ email, password }) => {
   return response.data;
 };
 
-export const logout = async (token) => {
-  const response = await axios.get('http://localhost:4000/users/logout', {
-    headers: {
-      authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+export const logout = async () => {
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URI}/users/logout`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
     },
-  });
+  );
   return response;
 };
 
