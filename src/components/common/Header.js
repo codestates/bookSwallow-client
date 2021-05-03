@@ -3,64 +3,100 @@ import styled from 'styled-components';
 import Button from './Button';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
+import palette from '../../lib/styles/palette';
+import { useSelector } from 'react-redux';
 
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  background-color: #f4f4f4;
-  border-bottom: 2px solid #adb5bd;
-  z-index: 100;
-  a {
-    font-size: 1.5rem;
-  }
+  background-color: ${palette.background};
+  border-bottom: 1px solid ${palette.border};
+  z-index: 1;
+  font-size: 1.25rem;
+  /* background-color: rgba(242, 242, 242, 0.2);
+  backdrop-filter: blur(30px); */
 `;
 
 const Wrapper = styled(Responsive)`
-  height: 6rem;
+  height: 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  .logo {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
 `;
 const Right = styled.div`
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   .right {
-    border-right: 1px solid black;
+    border-right: 2px solid ${palette.border};
+    padding-right: 1rem;
     a {
       padding: 1rem;
     }
-    margin-right: 1rem;
   }
-
   .left {
+    padding-left: 1rem;
     a {
       padding: 1rem;
+    }
+  }
+`;
+const StyledLink = styled(Link)`
+  .text {
+    &:hover {
+      opacity: 0.5;
     }
   }
 `;
 
 const Spacer = styled.div`
-  height: 6rem;
+  height: 5rem;
 `;
 
 function Header() {
+  const { login, loginError, isLogin, token } = useSelector(({ user }) => ({
+    isLogin: user.isLogin,
+    token: user.token,
+  }));
+
   return (
     <>
       <HeaderBlock>
         <Wrapper>
           <Link to="/" className="logo">
-            Logo
+            LOGO
           </Link>
           <Right>
             <div className="right">
-              <Link to="/books">list</Link>
-              <Link to="/zzims">zzim</Link>
-              <Link to="/mypage">mypage</Link>
+              <StyledLink to="/books">
+                <span className="text">LIST</span>
+              </StyledLink>
+              <StyledLink to="/zzims">
+                <span className="text">ZZIM</span>
+              </StyledLink>
             </div>
             <div className="left">
-              <Link to="/login">Log in</Link>
-              <Link to="/signup">
-                <button>Sign Up</button>
-              </Link>
+              {isLogin ? (
+                <>
+                  <StyledLink to="/mypage">
+                    <span className="text">마이페이지</span>
+                  </StyledLink>
+                  <StyledLink to="/">로그아웃</StyledLink>
+                </>
+              ) : (
+                <>
+                  <StyledLink to="/login">
+                    <span className="text">로그인</span>
+                  </StyledLink>
+                  <StyledLink to="/signup">
+                    <Button>회원가입</Button>
+                  </StyledLink>
+                </>
+              )}
             </div>
           </Right>
         </Wrapper>
