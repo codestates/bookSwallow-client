@@ -12,7 +12,7 @@ export const logoutUser = (token) => async (dispatch) => {
     const logoutRes = await authAPI.logout(token);
     dispatch({ type: LOGOUT_USER });
     console.log('logoutRes?', logoutRes);
-    console.log('로그아웃 되었습니다');
+    console.log('로그아웃 되었습니다.');
   } catch (error) {
     console.log(error);
   }
