@@ -15,17 +15,12 @@ import Mypage from './pages/MyPage';
 
 const Wrapper = styled(Responsive)``;
 
-const Spacer = styled.div`
-  height: 6rem;
-`;
-
 function App() {
   console.log(process.env.REACT_APP_SERVER_URI);
   return (
     <>
       <GlobalStyles />
       <HeaderContainer />
-      <Spacer />
       <Wrapper>
         <Route component={MainPage} path="/" exact />
         <Route component={ListPage} path="/books" exact />
