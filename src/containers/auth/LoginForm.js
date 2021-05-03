@@ -25,12 +25,7 @@ const RegisterForm = ({ history }) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   const onSubmitHand = (data) => {
-    if (
-      data.email &&
-      data.password &&
-      data.formErrors.email.length === 0 &&
-      data.formErrors.password.length === 0
-    ) {
+    if (data.email && data.password) {
       const { email, password } = data;
       dispatch(loginReq({ email, password }));
     } else {
