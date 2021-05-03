@@ -43,13 +43,13 @@ function Main() {
       <Container>
         <div className="left">
           <span className="left__logo">
-            <img src="/images/Logo.png" alt="" />
+            <img src="./images/Logo.png" alt="" />
           </span>
           <span className="left__title">BookSwallow</span>
           <div className="left__content">Do you like a book?</div>
         </div>
         <div className="right">
-          <img src="/images/mainImage.png" alt="메인이미지" />
+          <img src="./images/mainImage.png" alt="메인이미지" />
         </div>
       </Container>
     </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from './Button'
+import Button from './Button';
 import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   background-color: #f4f4f4;
   border-bottom: 2px solid #adb5bd;
-  z-index: 1;
+  z-index: 100;
   a {
     font-size: 1.5rem;
   }
