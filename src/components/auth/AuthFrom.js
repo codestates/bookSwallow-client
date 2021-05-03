@@ -198,21 +198,35 @@ const AuthForm = ({ type, onSubmitHand }) => {
       <form onSubmit={onSubmitHandler}>
         <Container>
           <FieldSet>
-            <WrapperInput>
-              <InputEl
-                className={formErrors.email.length > 0 ? 'error' : null}
-                type="text"
-                name="email"
-                onChange={loginOnChange}
-                value={email || ''}
-                required
-              />
-              {formErrors.email.length > 0 && (
-                <span className="errorMessage">{formErrors.email}</span>
-              )}
-              <LabelText>이메일</LabelText>
-            </WrapperInput>
-            {type === 'register' && (
+            {type === 'login' && (
+              <WrapperInput>
+                <InputEl
+                  type="text"
+                  name="email"
+                  onChange={loginOnChange}
+                  value={email || ''}
+                  required
+                />
+                <LabelText>이메일</LabelText>
+              </WrapperInput>
+            )}
+            {(type === 'register' || type === 'mypage') && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.email.length > 0 ? 'error' : null}
+                  type="text"
+                  name="email"
+                  onChange={loginOnChange}
+                  value={email || ''}
+                  required
+                />
+                {formErrors.email.length > 0 && (
+                  <span className="errorMessage">{formErrors.email}</span>
+                )}
+                <LabelText>이메일</LabelText>
+              </WrapperInput>
+            )}
+            {(type === 'register' || type === 'mypage') && (
               <WrapperInput>
                 <InputEl
                   className={formErrors.username.length > 0 ? 'error' : null}
@@ -228,52 +242,35 @@ const AuthForm = ({ type, onSubmitHand }) => {
                 <LabelText>이름</LabelText>
               </WrapperInput>
             )}
-            {type === 'mypage' && (
+            {type === 'login' && (
               <WrapperInput>
                 <InputEl
-                  className={formErrors.username.length > 0 ? 'error' : null}
-                  type="text"
-                  name="username"
-                  onChange={loginOnChange}
-                  value={username || ''}
-                />
-                {formErrors.username.length > 0 && (
-                  <span className="errorMessage">{formErrors.username}</span>
-                )}
-                <LabelText>이름</LabelText>
-              </WrapperInput>
-            )}
-            <WrapperInput>
-              <InputEl
-                className={formErrors.password.length > 0 ? 'error' : null}
-                type="password"
-                name="password"
-                onChange={loginOnChange}
-                value={password || ''}
-                required
-              />
-              {formErrors.password.length > 0 && (
-                <span className="errorMessage">{formErrors.password}</span>
-              )}
-              <LabelText>비밀번호</LabelText>
-            </WrapperInput>
-            {type === 'register' && (
-              <WrapperInput>
-                <InputEl
-                  className={formErrors.PW_confirm.length > 0 ? 'error' : null}
                   type="password"
-                  name="PW_confirm"
+                  name="password"
                   onChange={loginOnChange}
-                  value={PW_confirm || ''}
+                  value={password || ''}
                   required
                 />
-                {formErrors.PW_confirm.length > 0 && (
-                  <span className="errorMessage">{formErrors.PW_confirm}</span>
-                )}
-                <LabelText>비밀번호 확인</LabelText>
+                <LabelText>비밀번호</LabelText>
               </WrapperInput>
             )}
-            {type === 'mypage' && (
+            {(type === 'register' || type === 'mypage') && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.password.length > 0 ? 'error' : null}
+                  type="password"
+                  name="password"
+                  onChange={loginOnChange}
+                  value={password || ''}
+                  required
+                />
+                {formErrors.password.length > 0 && (
+                  <span className="errorMessage">{formErrors.password}</span>
+                )}
+                <LabelText>비밀번호</LabelText>
+              </WrapperInput>
+            )}
+            {(type === 'register' || type === 'mypage') && (
               <WrapperInput>
                 <InputEl
                   className={formErrors.PW_confirm.length > 0 ? 'error' : null}
