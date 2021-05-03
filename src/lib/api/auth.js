@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export const login = async ({ email, password }) => {
   const response = await axios.post(
-    'https://server.bookswallow.tk/users/login',
-    // 'http://localhost:4000/users/login',
+    // 'https://server.bookswallow.tk/users/login',
+    'http://localhost:4000/users/login',
     { email, password },
     {
       headers: { 'Content-Type': 'application/json' },
@@ -13,9 +13,20 @@ export const login = async ({ email, password }) => {
   return response.data;
 };
 
+export const logout = async (token) => {
+  const response = await axios.get('http://localhost:4000/users/logout', {
+    headers: {
+      authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  return response;
+};
+
 export const signup = async ({ email, username, password }) => {
   const response = await axios.post(
-    'http://server.bookswallow.tk/users/signup',
+    // 'http://server.bookswallow.tk/users/signup',
+    'http://localhost:4000/users/signup',
     {
       email,
       username,
