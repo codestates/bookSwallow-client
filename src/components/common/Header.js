@@ -45,6 +45,43 @@ const Right = styled.div`
     }
   }
 `;
+const LoginBox = styled.div`
+  margin-left: 1rem;
+  position: relative;
+  cursor: pointer;
+  & > span {
+    font-weight: 700;
+  }
+  .dropdown {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    background: #fff;
+    width: 130px;
+    height: 80px;
+    border: 1px solid ${palette.border};
+    border-radius: 5px;
+    & > div {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &:hover {
+        background: #343a40;
+        color: #fff;
+      }
+    }
+  }
+  .dropdown a {
+    padding: 0;
+  }
+  &:hover {
+    .dropdown {
+      display: flex;
+    }
+  }
+`;
 const StyledLink = styled(Link)`
   .text {
     &:hover {
@@ -58,9 +95,10 @@ const Spacer = styled.div`
 `;
 
 function Header({ onLogout }) {
-  const { isLogin, token } = useSelector(({ user }) => ({
+  const { isLogin, token, username } = useSelector(({ user }) => ({
     isLogin: user.isLogin,
     token: user.token,
+    username: user.username,
   }));
 
   return (
@@ -82,12 +120,19 @@ function Header({ onLogout }) {
             <div className="left">
               {isLogin ? (
                 <>
-                  <StyledLink to="/mypage">
-                    <span className="text">MYPAGE</span>
-                  </StyledLink>
-                  <StyledLink to="/" onClick={() => onLogout()}>
-                    LOG OUT
-                  </StyledLink>
+                  <LoginBox>
+                    <span>{username} </span>님
+                    <div className="dropdown">
+                      <div>
+                        <span>
+                          <Link to="/mypage">MY PAGE</Link>
+                        </span>
+                      </div>
+                      <div onClick={() => onLogout()}>
+                        <span>LOG OUT</span>
+                      </div>
+                    </div>
+                  </LoginBox>
                 </>
               ) : (
                 <>
