@@ -1,12 +1,49 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import SocialAuth from '../../components/auth/SocialAuth';
-import { loginUser } from '../../modules/user';
+import { kakaoLogin, loginUser } from '../../modules/user';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 const SocialContainer = ({ history }) => {
   const dispatch = useDispatch();
+
+  const kakaoLoginHandler = () => {
+    try {
+      return new Promise((resolve, reject) => {
+        if (!window.Kakao) {
+          reject('Kakao 인스턴스가 존재하지 않습니다.');
+        }
+        window.Kakao.Auth.login({
+          success: (auth) => {
+            window.Kakao.API.request({
+              url: '/v2/user/me',
+              data: {
+                property_keys: ['kakao_account.email', 'kakao_account.profile'],
+              },
+              success: function (response) {
+                dispatch(
+                  kakaoLogin(
+                    response.kakao_account.email,
+                    response.kakao_account.profile.nickname,
+                    auth.access_token,
+                  ),
+                );
+              },
+              fail: function (error) {
+                console.log(error);
+              },
+            });
+          },
+          fail: (err) => {
+            console.error(err);
+          },
+        });
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const googleLoginHandler = () => {
     console.log(process.env.REACT_APP_CLIENT_URI);
@@ -52,7 +89,12 @@ const SocialContainer = ({ history }) => {
     }
   });
 
-  return <SocialAuth googleLoginHandler={googleLoginHandler} />;
+  return (
+    <SocialAuth
+      googleLoginHandler={googleLoginHandler}
+      kakaoLoginHandler={kakaoLoginHandler}
+    />
+  );
 };
 
 export default withRouter(SocialContainer);
