@@ -1,30 +1,43 @@
 import axios from 'axios';
 
 export const getZzims = async () => {
-  const response = await axios.get(`${process.env.REACT_APP_SERVER_URI}/zzims`);
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URI}/zzims`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    },
+  );
   return response.data;
 };
 
-export const createZzim = async (token) => {
+export const createZzim = async (book_id) => {
   const response = await axios.post(
     `${process.env.REACT_APP_SERVER_URI}/zzims`,
     {
-      headers: {
-        authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      book_id,
     },
-  );
-};
-
-export const deleteZzim = async (token) => {
-  const response = await axios.delete(
-    `${process.env.REACT_APP_SERVER_URI}/zzims`,
     {
       headers: {
-        authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
+      withCredentials: true,
     },
   );
+  return response.data;
+};
+
+export const deleteItem = async (zzim_id) => {
+  const response = await axios.delete(
+    `${process.env.REACT_APP_SERVER_URI}/zzims/${zzim_id}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    },
+  );
+  return response.data;
 };
