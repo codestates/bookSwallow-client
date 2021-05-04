@@ -7,7 +7,7 @@ export const getComments = async (bookId) => {
   return response.data;
 };
 
-export const createComment = async (bookId, token) => {
+export const createComment = async (bookId, token, comment) => {
   const response = await axios.post(
     `${process.env.REACT_APP_SERVER_URI}/comments/${bookId}`,
     {
@@ -15,30 +15,39 @@ export const createComment = async (bookId, token) => {
         authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
+      content: comment,
     },
+    { withCredentials: true },
   );
+
+  return response;
 };
 
-export const updateComment = async (bookId, token) => {
+export const updateComment = async (commentId, comment, token) => {
   const response = await axios.patch(
-    `${process.env.REACT_APP_SERVER_URI}/comments/${bookId}`,
+    `${process.env.REACT_APP_SERVER_URI}/comments/${commentId}`,
     {
       headers: {
         authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
+      content: comment,
     },
+    { withCredentials: true },
   );
+  return response.data;
 };
 
-export const deleteComment = async (bookId, token) => {
+export const deleteComment = async (commentId, token) => {
   const response = await axios.delete(
-    `${process.env.REACT_APP_SERVER_URI}/comments/${bookId}`,
+    `${process.env.REACT_APP_SERVER_URI}/comments/${commentId}`,
     {
       headers: {
         authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     },
+    { withCredentials: true },
   );
+  return response;
 };

@@ -10,12 +10,13 @@ const Spacer = styled.div`
 
 function BookDetailPage({ match }) {
   const { params } = match;
+
   return (
     <>
       <Spacer />
       <BookContainer id={params.id} />
       <Spacer />
-      <CommentInputContainer />
+      <CommentInputContainer bookId={params.id} />
       <Spacer />
       <CommentsContainer bookId={params.id} />
       <Spacer />

@@ -72,8 +72,7 @@ const Button = styled.button`
   }
 `;
 
-function BookDetail({ id, book }) {
-  console.log(book);
+function BookDetail({ book, onSelect }) {
   return (
     <FlexContainer>
       <ImgDiv>
@@ -90,7 +89,7 @@ function BookDetail({ id, book }) {
         <p className="price">
           <span>가격</span> {book.price}
         </p>
-        <Button>ZZIM</Button>
+        <Button onClick={() => onSelect(book.id)}>ZZIM</Button>
         <p className="description">{book.description}</p>
       </ContentDiv>
     </FlexContainer>

@@ -8,7 +8,6 @@ const AuthTemplateBlock = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
 `;
 
 export default AuthTemplateBlock;

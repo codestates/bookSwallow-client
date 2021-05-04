@@ -86,8 +86,10 @@ const UpdateForm = ({ history }) => {
     }
   }, [update, updateError, errorMsg, history, dispatch]);
 
+
   const currentUser = username;
   const currentEmail = email;
+
 
   const withdrawalBtn = () => {
     dispatch(withdrawal(token));
