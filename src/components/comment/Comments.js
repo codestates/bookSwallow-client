@@ -1,7 +1,16 @@
 import React from 'react';
 import CommentItem from './CommentItem';
 
-function Comments({ comments, isUpdate, updateComment, deleteComment }) {
+function Comments({
+  comments,
+  isUpdate,
+  userId,
+  updateText,
+  updateOnChange,
+  updateStateComment,
+  deleteComment,
+  updateCommentHandler,
+}) {
   return (
     <>
       {comments.map((comment) => (
@@ -9,8 +18,12 @@ function Comments({ comments, isUpdate, updateComment, deleteComment }) {
           key={comment.id}
           comment={comment}
           isUpdate={isUpdate}
-          updateComment={updateComment}
+          userId={userId}
+          updateText={updateText}
+          updateStateComment={updateStateComment}
+          updateOnChange={updateOnChange}
           deleteComment={deleteComment}
+          updateCommentHandler={updateCommentHandler}
         />
       ))}
     </>
