@@ -79,7 +79,7 @@ function Header() {
           <Right>
             <div className="right">
               <StyledLink to="/books">
-                <span className="text">LIST</span>
+                <span className="text">BOOK</span>
               </StyledLink>
               <StyledLink to="/zzims">
                 <span className="text">ZZIM</span>
@@ -89,19 +89,19 @@ function Header() {
               {isLogin ? (
                 <>
                   <StyledLink to="/mypage">
-                    <span className="text">마이페이지</span>
+                    <span className="text">MYPAGE</span>
                   </StyledLink>
                   <StyledLink to="/" onClick={() => loginHandler(token)}>
-                    로그아웃
+                    LOG OUT
                   </StyledLink>
                 </>
               ) : (
                 <>
                   <StyledLink to="/login">
-                    <span className="text">로그인</span>
+                    <span className="text">LOG IN</span>
                   </StyledLink>
                   <StyledLink to="/signup">
-                    <Button>회원가입</Button>
+                    <Button>SIGN UP</Button>
                   </StyledLink>
                 </>
               )}
