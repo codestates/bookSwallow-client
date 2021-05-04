@@ -1,25 +1,75 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { getZzims } from '../../modules/zzims';
+import { getZzims, deleteZzim } from '../../modules/zzims';
 import ZzimList from '../../components/zzim/ZzimList';
 import Loading from '../../components/common/Loading';
 import Errors from '../../components/errors/Errors';
 import Empty from '../../components/common/Empty';
+import Modal from '../../components/common/Modal';
+import { showModal, closeModal } from '../../modules/modal';
 
 function ZzimsContainer() {
-  // const { data, loading, error } = useSelector((state) => state.zzims.zzims);
-  // const zzimsDispatch = useDispatch();
+  const [zzimId, setZzimId] = useState(null);
+  const dispatch = useDispatch();
+  const {
+    data,
+    loading,
+    error,
+    checkModal,
+    delData,
+    delLoading,
+    delError,
+  } = useSelector(({ zzims, modal }) => ({
+    data: zzims.zzims.data,
+    loading: zzims.zzims.loading,
+    error: zzims.zzims.error,
+    checkModal: modal.checkModal,
+    delData: zzims.delete.delData,
+    delLoading: zzims.delete.delLoading,
+    delError: zzims.delete.delError,
+  }));
 
-  // useEffect(() => {
-  //   zzimsDispatch(getZzims());
-  // }, [zzimsDispatch]);
+  useEffect(() => {
+    dispatch(getZzims());
+  }, [dispatch]);
 
-  // if (loading) return <Loading />;
-  // if (error) return <Errors error={error} />;
-  // if (!data) return <Empty />;
+  const onDelete = (zzim_id) => {
+    dispatch(showModal());
+    setZzimId(zzim_id);
+  };
+  const onCancel = () => {
+    dispatch(closeModal());
+  };
+  const onDeleteClick = async () => {
+    await dispatch(deleteZzim(zzimId));
+    await dispatch(closeModal());
+  };
 
-  // zzims={data.data}
-  return <ZzimList />;
+  useEffect(() => {
+    if (delError) {
+      console.log('에러 발생');
+      console.log(delError);
+    }
+    if (delData) {
+      dispatch(getZzims());
+    }
+  }, [delData, delError]);
+
+  if (loading) return <Loading />;
+  if (error) return <Errors error={error} />;
+  if (!data) return <Empty />;
+
+  return (
+    <>
+      <ZzimList zzims={data.data} deleteHandler={onDelete} />
+      <Modal
+        visible={checkModal}
+        content="삭제하시겠습니까?"
+        onCancel={onCancel}
+        onConfirm={onDeleteClick}
+      />
+    </>
+  );
 }
 
 export default ZzimsContainer;

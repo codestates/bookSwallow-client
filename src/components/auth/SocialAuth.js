@@ -59,14 +59,18 @@ const SnsButton = styled.div`
   }
 `;
 
-const SocialAuth = () => {
+const SocialAuth = ({ googleLoginHandler }) => {
   return (
     <Wrapper>
       <Line />
       <SnsButton>
         <Title sns>SNS 계정 로그인</Title>
         <div>
-          <img src="/images/sns-google.png" alt="" />
+          <img
+            src="/images/sns-google.png"
+            alt=""
+            onClick={googleLoginHandler}
+          />
           <img src="/images/sns-kakao.png" alt="" />
         </div>
       </SnsButton>
