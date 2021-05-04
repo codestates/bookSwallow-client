@@ -3,17 +3,19 @@ import * as authAPI from '../lib/api/auth';
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 
-export const loginUser = (token) => {
-  console.log('토큰이 성공적으로 바뀌었습니다', token);
-  return { type: LOGIN_USER, token };
-};
+
+export const loginUser = ({ token, id, email, username }) => ({
+  type: LOGIN_USER,
+  token,
+  id,
+  email,
+  username,
+});
 
 export const logoutUser = () => async (dispatch) => {
   try {
     const logoutRes = await authAPI.logout();
     dispatch({ type: LOGOUT_USER });
-    console.log('logoutRes?', logoutRes);
-    console.log('로그아웃 되었습니다.');
   } catch (error) {
     console.log(error);
   }
@@ -22,6 +24,9 @@ export const logoutUser = () => async (dispatch) => {
 const initialState = {
   isLogin: false,
   token: null,
+  id: null,
+  email: null,
+  username: null,
 };
 
 export default function user(state = initialState, action) {
@@ -31,12 +36,18 @@ export default function user(state = initialState, action) {
         ...state,
         isLogin: true,
         token: action.token,
+        id: action.id,
+        email: action.email,
+        username: action.username,
       };
     case LOGOUT_USER:
       return {
         ...state,
         isLogin: false,
         token: null,
+        id: null,
+        email: null,
+        username: null,
       };
     default:
       return state;

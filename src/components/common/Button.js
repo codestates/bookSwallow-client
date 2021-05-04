@@ -40,6 +40,15 @@ const buttonStyle = css`
       font-size: 1.2rem;
       font-weight: 600;
     `}
+  ${(props) =>
+    props.line &&
+    css`
+      background: #fff;
+      border: 1px solid ${palette.brown};
+      &:hover {
+        background: #fff;
+      }
+    `}
 `;
 
 const StyledButton = styled.button`

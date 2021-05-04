@@ -43,13 +43,22 @@ const Button = styled.button`
 const Container = styled.div`
   display: flex;
 `;
-function CommentInput() {
+function CommentInput({ comment, onSubmit, onChange }) {
   return (
-    <Container>
-      <TextArea placeholder="댓글을 작성하세요." autoFocus />
-      <Specer />
-      <Button>작성</Button>
-    </Container>
+    <form onSubmit={onSubmit}>
+      <Container>
+        <TextArea
+          placeholder="댓글을 작성하세요."
+          autoFocus
+          name="comment"
+          value={comment}
+          onChange={onChange}
+          required
+        />
+        <Specer />
+        <Button type="submit">작성</Button>
+      </Container>
+    </form>
   );
 }
 
