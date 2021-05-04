@@ -17,7 +17,10 @@ function BookDetailPage({ match }) {
       <Spacer />
       <CommentInputContainer />
       <Spacer />
-      <CommentsContainer />
+      <CommentsContainer bookId={params.id} />
+      <Spacer />
+      <Spacer />
+      <Spacer />
     </>
   );
 }

@@ -44,8 +44,8 @@ function CommentItem({ comment }) {
     <Container>
       <User>
         <div>
-          <p className="username">{}</p>
-          <p className="created">{}</p>
+          <p className="username">{comment.user.username}</p>
+          <p className="created">{comment.createdAt}</p>
         </div>
         <div>
           <span>수정</span>
@@ -53,7 +53,7 @@ function CommentItem({ comment }) {
         </div>
       </User>
       <Comment>
-        <p>ㅁㄴㅇㄴㅁㅇ</p>
+        <p>{comment.content}</p>
       </Comment>
     </Container>
   );
