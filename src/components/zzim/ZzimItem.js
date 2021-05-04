@@ -27,13 +27,14 @@ const ImgContainer = styled.div`
   margin-bottom: 20px;
   overflow: hidden;
 
-  & > img {
+  img {
     width: 100%;
     height: 100%;
+    object-fit: fill;
   }
 
   &:hover {
-    & > img {
+    img {
       opacity: 0.7;
     }
     ${RemoveButton} {
@@ -42,14 +43,14 @@ const ImgContainer = styled.div`
   }
 `;
 
-function ZzimItem({ zzim }) {
+function ZzimItem({ zzim, deleteHandler }) {
   return (
     <ImgContainer>
-      <RemoveButton>
+      <RemoveButton onClick={() => deleteHandler(zzim.id)}>
         <MdDeleteForever />
       </RemoveButton>
-      <Link to={`/books/${zzim.key}`}>
-        <img src={zzim.imgUrl} alt={zzim.key} />
+      <Link to={`/books/${zzim.book_id}`}>
+        <img src={zzim.book.cover_img} alt={zzim.id} />
       </Link>
     </ImgContainer>
   );
