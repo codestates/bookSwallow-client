@@ -14,7 +14,7 @@ const BookItemDiv = styled.div`
 
   align-content: flex-start;
   margin-bottom: 2rem;
-  background-color: #e5e5e5;
+  background-color: #e9ecef;
 
   border: 0.5px solid #adb5bd;
   border-radius: 0.7rem;

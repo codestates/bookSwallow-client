@@ -72,8 +72,8 @@ const Button = styled.button`
   }
 `;
 
+
 function BookDetail({ book, onSelect }) {
-  // console.log(book);
   return (
     <FlexContainer>
       <ImgDiv>

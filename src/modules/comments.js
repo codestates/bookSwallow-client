@@ -32,19 +32,53 @@ export const getComments = (bookId) => async (dispatch) => {
   }
 };
 
-export const createComment = (bookId, token) => async (dispatch, getState) => {
+export const createComment = (bookId, comment) => async (
+  dispatch,
+  getState,
+) => {
+  const comments = getState().comments;
+  const token = getState().user.token;
   dispatch({ type: CREATE_COMMENT });
   try {
-    const comment = await commentsAPI.createComment(bookId, token);
-
+    const serverComment = await commentsAPI.createComment(
+      bookId,
+      token,
+      comment,
+    );
+    const commentList = comments.comments.data;
     dispatch({
       type: CREATE_COMMENT_SUCCESS,
-      comments: getState.concat(comment),
+      comments: commentList.concat(serverComment.data),
     });
   } catch (error) {
     dispatch({
       type: CREATE_COMMENT_ERROR,
+      error,
     });
+  }
+};
+
+export const updateComment = (bookId, comment) => async (
+  dispatch,
+  getState,
+) => {
+  const comments = getState().comments.comments.data;
+  const token = getState().user.token;
+};
+
+export const deleteComment = (commentId, bookId) => async (
+  dispatch,
+  getState,
+) => {
+  const token = getState().user.token;
+  const comments = getState().comments.comments.data;
+  const newComment = comments.filter((comment) => comment.id !== commentId);
+  dispatch({ type: DELETE_COMMENT });
+  try {
+    await commentsAPI.deleteComment(commentId, token);
+    dispatch({ type: DELETE_COMMENT_SUCCESS, comments: newComment });
+  } catch (error) {
+    dispatch({ type: DELETE_COMMENT_ERROR, error });
   }
 };
 
@@ -77,6 +111,59 @@ export default function comments(state = initailState, action) {
         },
       };
     case GET_COMMENTS_ERROR:
+      return {
+        ...state,
+        comments: {
+          loading: false,
+          data: null,
+          error: action.error,
+        },
+      };
+    case CREATE_COMMENT:
+      return {
+        ...state,
+        comments: {
+          loading: true,
+          data: null,
+          error: null,
+        },
+      };
+    case CREATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: {
+          loading: false,
+          data: action.comments,
+          error: null,
+        },
+      };
+    case CREATE_COMMENT_ERROR:
+      return {
+        ...state,
+        comments: {
+          loading: false,
+          data: null,
+          error: action.error,
+        },
+      };
+
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        comments: {
+          loading: true,
+          ...state.comments,
+        },
+      };
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: {
+          loading: false,
+          data: action.comments,
+        },
+      };
+    case DELETE_COMMENT_ERROR:
       return {
         ...state,
         comments: {

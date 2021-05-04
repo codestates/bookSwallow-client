@@ -66,10 +66,14 @@ export const updateReq = ({ password, username }) => async (dispatch) => {
   }
 };
 
-export const userInfoReq = () => async (dispatch) => {
-  dispatch({ type: INFORMATION });
+export const userInfoReq = () => async (dispatch, getState) => {
+  dispatch({
+    type: INFORMATION,
+  });
+
   try {
     const infoRes = await authAPI.info();
+
     dispatch({
       type: INFORMATION_SUCCESS,
       info: infoRes,
