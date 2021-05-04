@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthFrom';
-import SocialAuth from '../../components/auth/SocialAuth';
 import { loginReq, resetLogin } from '../../modules/auth';
 import { loginUser } from '../../modules/user';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
+import SocialContainer from './SocialContainer';
 
 const ErrorText = styled.div`
   margin-top: 10px;
@@ -44,17 +44,28 @@ const RegisterForm = ({ history }) => {
       setErrorMsg('');
       console.log('로그인 성공');
       console.log(login);
-      dispatch(loginUser(login.data.accessToken));
+      const payload = {
+        token: login.data.accessToken,
+        id: login.data.payload.id,
+        email: login.data.payload.email,
+        username: login.data.payload.username,
+      };
+      dispatch(loginUser(payload));
+    }
+  }, [login, loginError, dispatch]);
+
+  useEffect(() => {
+    if (isLogin) {
       dispatch(resetLogin());
       history.push('/');
     }
-  }, [login, loginError, dispatch]);
+  }, [isLogin]);
 
   return (
     <>
       <AuthForm type="login" onSubmitHand={onSubmitHand}></AuthForm>
       <ErrorText>{errorMsg}</ErrorText>
-      <SocialAuth />
+      <SocialContainer />
     </>
   );
 };
