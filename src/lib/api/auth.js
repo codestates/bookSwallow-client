@@ -63,3 +63,17 @@ export const info = async () => {
   );
   return response.data;
 };
+
+export const withdraw = async (token) => {
+  const response = await axios.patch(
+    `${process.env.REACT_APP_SERVER_URI}/users/withdrawal`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    },
+    { withCredentials: true },
+  );
+  return response.data;
+};

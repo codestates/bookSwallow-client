@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
@@ -100,22 +100,6 @@ const Line = styled.div`
   width: 100%;
 `;
 
-const WithdrawBtn = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 10px;
-  button {
-    border: 0;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0;
-    &:hover {
-      opacity: 0.5;
-    }
-  }
-`;
-
 const textMap = {
   login: ['로그인', '로그인', '카카오', '구글'],
   register: ['회원가입', '회원가입'],
@@ -133,9 +117,10 @@ const isMatch = (password1, password2) => {
   return password1 !== password2;
 };
 
-const AuthForm = ({ type, onSubmitHand, updateInp }) => {
+const AuthForm = ({ type, onSubmitHand, currentUser, currentEmail }) => {
   const text = textMap[type];
 
+  const [valueChange, setValueChange] = useState(currentUser);
   const [state, setState] = useState({
     username: '',
     email: '',
@@ -180,6 +165,10 @@ const AuthForm = ({ type, onSubmitHand, updateInp }) => {
       formErrors,
       [name]: value,
     });
+
+    if (e.target.name === 'username') {
+      setValueChange(e.target.value);
+    }
   };
 
   const onSubmitHandler = (e) => {
@@ -235,8 +224,8 @@ const AuthForm = ({ type, onSubmitHand, updateInp }) => {
                   type="text"
                   name="email"
                   onChange={loginOnChange}
-                  value={updateInp.email || ''}
-                  readonly
+                  value={currentEmail || ''}
+                  readonl
                 />
                 {formErrors.email.length > 0 && (
                   <span className="errorMessage">{formErrors.email}</span>
@@ -267,8 +256,7 @@ const AuthForm = ({ type, onSubmitHand, updateInp }) => {
                   type="text"
                   name="username"
                   onChange={loginOnChange}
-                  value={username || `${updateInp.username}`} //?이거 해결해야됨
-                  required
+                  value={valueChange || ''}
                 />
                 {formErrors.username.length > 0 && (
                   <span className="errorMessage">{formErrors.username}</span>
@@ -341,9 +329,6 @@ const AuthForm = ({ type, onSubmitHand, updateInp }) => {
               <Button sideButton fullWidth type="submit">
                 {text[1]}
               </Button>
-              <WithdrawBtn>
-                <button>{text[2]}</button>
-              </WithdrawBtn>
             </div>
           )}
         </Container>
