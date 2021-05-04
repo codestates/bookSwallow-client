@@ -1,8 +1,8 @@
 import * as authAPI from '../lib/api/auth';
+import * as kakaoAPI from '../lib/api/kakaoLogin';
 
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
-
 
 export const loginUser = ({ token, id, email, username }) => ({
   type: LOGIN_USER,
@@ -16,6 +16,22 @@ export const logoutUser = () => async (dispatch) => {
   try {
     const logoutRes = await authAPI.logout();
     dispatch({ type: LOGOUT_USER });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const kakaoLogin = (email, nickname) => async (dispatch) => {
+  try {
+    const payload = await kakaoAPI.kakaoLogin(email, nickname);
+    console.log(payload);
+    dispatch({
+      type: LOGIN_USER,
+      token: payload.accessToken,
+      id: payload.payload.id,
+      email,
+      username: nickname,
+    });
   } catch (error) {
     console.log(error);
   }
