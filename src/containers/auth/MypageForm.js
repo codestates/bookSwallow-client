@@ -56,10 +56,10 @@ const UpdateForm = ({ history }) => {
     }
   }, [update, updateError, errorMsg, history, dispatch]);
 
-  useEffect(() => {
-    dispatch(userInfoReq());
-    setupdateInp({ username: info.username, email: info.email });
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userInfoReq());
+  //   setupdateInp({ username: info.username, email: info.email });
+  // }, []);
 
   console.log('이거뜸?', updateInp);
 

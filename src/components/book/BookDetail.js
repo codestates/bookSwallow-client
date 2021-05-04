@@ -73,7 +73,6 @@ const Button = styled.button`
 `;
 
 function BookDetail({ id, book }) {
-  console.log(book);
   return (
     <FlexContainer>
       <ImgDiv>

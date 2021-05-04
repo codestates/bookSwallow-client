@@ -38,8 +38,7 @@ const Container = styled.div`
   }
 `;
 
-function CommentItem({ comment }) {
-  console.log(comment);
+function CommentItem({ comment, isUpdate, updateComment, deleteComment }) {
   return (
     <Container>
       <User>
@@ -48,12 +47,16 @@ function CommentItem({ comment }) {
           <p className="created">{comment.createdAt}</p>
         </div>
         <div>
-          <span>수정</span>
-          <span>삭제</span>
+          <span onClick={updateComment}>수정</span>
+          <span onClick={() => deleteComment(comment.id)}>삭제</span>
         </div>
       </User>
       <Comment>
-        <p>{comment.content}</p>
+        {!isUpdate ? (
+          <p>{comment.content}</p>
+        ) : (
+          <textarea value={comment.content} />
+        )}
       </Comment>
     </Container>
   );
