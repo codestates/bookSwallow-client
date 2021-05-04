@@ -51,7 +51,6 @@ function CommentItem({
   deleteComment,
   updateCommentHandler,
 }) {
-  console.log(comment);
 
   return (
     <Container>
