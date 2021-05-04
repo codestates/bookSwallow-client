@@ -3,13 +3,14 @@ import * as authAPI from '../lib/api/auth';
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 
-export const loginUser = (token) => ({
-  type: LOGIN_USER,
-  token,
-});
-export const logoutUser = (token) => async (dispatch) => {
+export const loginUser = (token) => {
+  console.log('토큰이 성공적으로 바뀌었습니다', token);
+  return { type: LOGIN_USER, token };
+};
+
+export const logoutUser = () => async (dispatch) => {
   try {
-    const logoutRes = await authAPI.logout(token);
+    const logoutRes = await authAPI.logout();
     dispatch({ type: LOGOUT_USER });
     console.log('logoutRes?', logoutRes);
     console.log('로그아웃 되었습니다.');

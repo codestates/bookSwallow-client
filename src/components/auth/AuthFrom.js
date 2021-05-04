@@ -133,10 +133,12 @@ const isMatch = (password1, password2) => {
   return password1 !== password2;
 };
 
-const AuthForm = ({ type, onSubmitHand }) => {
+const AuthForm = ({ type, onSubmitHand, updateInp }) => {
   const text = textMap[type];
 
   const [state, setState] = useState({
+    username: '',
+    email: '',
     formErrors: {
       username: '',
       email: '',
@@ -210,7 +212,7 @@ const AuthForm = ({ type, onSubmitHand }) => {
                 <LabelText>이메일</LabelText>
               </WrapperInput>
             )}
-            {(type === 'register' || type === 'mypage') && (
+            {type === 'register' && (
               <WrapperInput>
                 <InputEl
                   className={formErrors.email.length > 0 ? 'error' : null}
@@ -226,7 +228,23 @@ const AuthForm = ({ type, onSubmitHand }) => {
                 <LabelText>이메일</LabelText>
               </WrapperInput>
             )}
-            {(type === 'register' || type === 'mypage') && (
+            {type === 'mypage' && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.email.length > 0 ? 'error' : null}
+                  type="text"
+                  name="email"
+                  onChange={loginOnChange}
+                  value={updateInp.email || ''}
+                  readonly
+                />
+                {formErrors.email.length > 0 && (
+                  <span className="errorMessage">{formErrors.email}</span>
+                )}
+                <LabelText>이메일</LabelText>
+              </WrapperInput>
+            )}
+            {type === 'register' && (
               <WrapperInput>
                 <InputEl
                   className={formErrors.username.length > 0 ? 'error' : null}
@@ -234,6 +252,22 @@ const AuthForm = ({ type, onSubmitHand }) => {
                   name="username"
                   onChange={loginOnChange}
                   value={username || ''}
+                  required
+                />
+                {formErrors.username.length > 0 && (
+                  <span className="errorMessage">{formErrors.username}</span>
+                )}
+                <LabelText>이름</LabelText>
+              </WrapperInput>
+            )}
+            {type === 'mypage' && (
+              <WrapperInput>
+                <InputEl
+                  className={formErrors.username.length > 0 ? 'error' : null}
+                  type="text"
+                  name="username"
+                  onChange={loginOnChange}
+                  value={username || `${updateInp.username}`} //?이거 해결해야됨
                   required
                 />
                 {formErrors.username.length > 0 && (
