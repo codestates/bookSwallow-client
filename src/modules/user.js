@@ -3,6 +3,7 @@ import * as authAPI from '../lib/api/auth';
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 
+
 export const loginUser = ({ token, id, email, username }) => ({
   type: LOGIN_USER,
   token,
@@ -10,6 +11,7 @@ export const loginUser = ({ token, id, email, username }) => ({
   email,
   username,
 });
+
 export const logoutUser = () => async (dispatch) => {
   try {
     const logoutRes = await authAPI.logout();
