@@ -2,7 +2,7 @@ import * as authAPI from '../lib/api/auth';
 
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
-
+const WITHDRAW = 'WITHDRAW';
 
 export const loginUser = ({ token, id, email, username }) => ({
   type: LOGIN_USER,
@@ -16,6 +16,17 @@ export const logoutUser = () => async (dispatch) => {
   try {
     const logoutRes = await authAPI.logout();
     dispatch({ type: LOGOUT_USER });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const withdrawal = (token) => async (dispatch) => {
+  try {
+    console.log('토큰 받아왓니', token);
+    const withdraw = await authAPI.withdraw(token);
+    console.log('찍히냐');
+    dispatch({ type: WITHDRAW });
   } catch (error) {
     console.log(error);
   }
@@ -41,6 +52,15 @@ export default function user(state = initialState, action) {
         username: action.username,
       };
     case LOGOUT_USER:
+      return {
+        ...state,
+        isLogin: false,
+        token: null,
+        id: null,
+        email: null,
+        username: null,
+      };
+    case WITHDRAW:
       return {
         ...state,
         isLogin: false,
