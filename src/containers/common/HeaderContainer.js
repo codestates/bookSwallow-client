@@ -13,9 +13,7 @@ function HeaderContainer({ history }) {
     dispatch(logoutUser());
     history.push('/');
   };
-  useEffect(() => {
-    //  dispatch();
-  }, [dispatch]);
+
   return (
     <>
       <Headers onLogout={onLogout} />

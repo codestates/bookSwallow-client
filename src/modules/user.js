@@ -73,7 +73,7 @@ export const kakaoLogin = (email, nickname) => async (dispatch) => {
       token: payload.accessToken,
       id: payload.payload.id,
       email,
-      username: nickname,
+      username: payload.payload.username,
     });
     try {
       sessionStorage.setItem('id', payload.payload.id);

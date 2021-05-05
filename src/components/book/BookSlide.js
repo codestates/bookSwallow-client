@@ -40,7 +40,6 @@ function BookSlide() {
         return b.like_count - a.like_count;
       });
       const data = sortList.slice(0, 5);
-      console.log(data);
       setArray(data);
     }
   }, [bookList]);
