@@ -1,5 +1,6 @@
 import * as authAPI from '../lib/api/auth';
 import * as kakaoAPI from '../lib/api/kakaoLogin';
+import { userInfoReq } from './auth';
 
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
@@ -74,6 +75,7 @@ export const kakaoLogin = (email, nickname) => async (dispatch) => {
       email,
       username: nickname,
     });
+    dispatch(userInfoReq());
     try {
       sessionStorage.setItem('id', payload.payload.id);
     } catch (e) {
