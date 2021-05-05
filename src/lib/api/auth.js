@@ -61,7 +61,6 @@ export const info = async () => {
       withCredentials: true,
     },
   );
-  console.log('social 데이터', response.data);
   return response.data;
 };
 

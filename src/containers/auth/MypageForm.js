@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthFrom';
-import { updateReq, resetUpdate, resetInfo } from '../../modules/auth';
+import {
+  updateReq,
+  resetUpdate,
+  resetInfo,
+  userInfoReq,
+} from '../../modules/auth';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { loginUser, withdrawal } from '../../modules/user';
@@ -49,6 +54,7 @@ const UpdateForm = ({ history }) => {
   );
 
   const [errorMsg, setErrorMsg] = useState('');
+  const [socialType, setSocialType] = useState('');
 
   const onSubmitHand = (data) => {
     if (
@@ -83,14 +89,16 @@ const UpdateForm = ({ history }) => {
     }
   }, [update, updateError, errorMsg, history, dispatch]);
 
+  useEffect(() => {
+    dispatch(userInfoReq());
+    if (!info) {
+      return;
+    }
+    setSocialType(info.social_type);
+  }, []);
+
   const currentUser = username;
   const currentEmail = email;
-  const socialType = info.social_type;
-  let socialBolean = false;
-
-  if (socialType.length > 0) {
-    socialBolean = true;
-  }
 
   const withdrawalBtn = () => {
     dispatch(withdrawal(token));
@@ -105,7 +113,7 @@ const UpdateForm = ({ history }) => {
         currentUser={currentUser}
         currentEmail={currentEmail}
         onSubmitHand={onSubmitHand}
-        socialBolean={socialBolean}
+        socialType={socialType}
       ></AuthForm>
       <ErrorText>{errorMsg}</ErrorText>
       <Container>
