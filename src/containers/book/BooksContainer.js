@@ -12,7 +12,7 @@ function BooksContainer() {
 
   useEffect(() => {
     booksDispatch(getBooks());
-  }, [booksDispatch]);
+  }, []);
 
   if (loading) return <Loading />;
   if (error) return <Errors error={error} />;
@@ -21,4 +21,4 @@ function BooksContainer() {
   return <BookList books={data.data} />;
 }
 
-export default BooksContainer;
+export default React.memo(BooksContainer);
