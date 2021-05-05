@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { registerReq, resetRegister } from '../../modules/auth';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
+import Modal from '../../components/common/Modal';
+import { showModal, closeModal } from '../../modules/modal';
 
 const ErrorText = styled.div`
   margin-top: 10px;
@@ -12,10 +14,13 @@ const ErrorText = styled.div`
 
 const RegisterForm = ({ history }) => {
   const dispatch = useDispatch();
-  const { register, registerError } = useSelector(({ auth }) => ({
-    register: auth.register,
-    registerError: auth.registerError,
-  }));
+  const { register, registerError, checkModal } = useSelector(
+    ({ auth, modal }) => ({
+      register: auth.register,
+      registerError: auth.registerError,
+      checkModal: modal.checkModal,
+    }),
+  );
   const [errorMsg, setErrorMsg] = useState('');
 
   const onSubmitHand = (data) => {
@@ -49,19 +54,32 @@ const RegisterForm = ({ history }) => {
       setErrorMsg('');
       console.log(register);
       dispatch(resetRegister());
-      alert('회원가입 성공');
-      history.push('/login');
+      dispatch(showModal());
     }
   }, [register, registerError, errorMsg, history, dispatch]);
 
+  const onConfirm = () => {
+    dispatch(closeModal());
+    history.push('/login');
+  };
+
   useEffect(() => {
-    setErrorMsg('');
+    return () => {
+      dispatch(resetRegister());
+      setErrorMsg('');
+    };
   }, []);
 
   return (
     <>
       <AuthForm type="register" onSubmitHand={onSubmitHand}></AuthForm>
       <ErrorText>{errorMsg}</ErrorText>
+      <Modal
+        visible={checkModal}
+        content="회원가입 성공"
+        onCancel={onConfirm}
+        onConfirm={onConfirm}
+      />
     </>
   );
 };

@@ -78,6 +78,11 @@ const SocialContainer = ({ history }) => {
               email: response.data.data.payload.email,
               username: response.data.data.payload.username,
             };
+            try {
+              sessionStorage.setItem('id', response.data.data.payload.id);
+            } catch (e) {
+              console.log('sessionStorage is not working');
+            }
             await dispatch(loginUser(newPayload));
             await dispatch(userInfoReq());
             history.push('/');
@@ -87,7 +92,7 @@ const SocialContainer = ({ history }) => {
   }
 
   useEffect(() => {
-    if (window.location.href.indexOf('google' !== undefined)) {
+    if (window.location.href.indexOf('google' !== -1)) {
       googleLoginReqtoServer();
     }
   });

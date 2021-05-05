@@ -11,23 +11,17 @@ import { showModal, closeModal } from '../../modules/modal';
 function ZzimsContainer() {
   const [zzimId, setZzimId] = useState(null);
   const dispatch = useDispatch();
-  const {
-    data,
-    loading,
-    error,
-    checkModal,
-    delData,
-    delLoading,
-    delError,
-  } = useSelector(({ zzims, modal }) => ({
-    data: zzims.zzims.data,
-    loading: zzims.zzims.loading,
-    error: zzims.zzims.error,
-    checkModal: modal.checkModal,
-    delData: zzims.delete.delData,
-    delLoading: zzims.delete.delLoading,
-    delError: zzims.delete.delError,
-  }));
+  const { data, loading, error, checkModal, delData, delError } = useSelector(
+    ({ zzims, modal }) => ({
+      data: zzims.zzims.data,
+      loading: zzims.zzims.loading,
+      error: zzims.zzims.error,
+      checkModal: modal.checkModal,
+      delData: zzims.delete.delData,
+      delLoading: zzims.delete.delLoading,
+      delError: zzims.delete.delError,
+    }),
+  );
 
   useEffect(() => {
     dispatch(getZzims());
@@ -53,7 +47,7 @@ function ZzimsContainer() {
     if (delData) {
       dispatch(getZzims());
     }
-  }, [delData, delError]);
+  }, [delData, delError, dispatch]);
 
   if (loading) return <Loading />;
   if (error) return <Errors error={error} />;

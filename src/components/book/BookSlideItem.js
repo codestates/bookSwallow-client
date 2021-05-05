@@ -18,11 +18,13 @@ const IMG = styled.img`
 
 function BookSlideItem({ book }) {
   return (
-    <ImgContainer>
-      <Link to={`/books/${book.id}`}>
-        <IMG src={book.imgUrl} alt={`${book.id}번쨰 책`} />
-      </Link>
-    </ImgContainer>
+    <>
+      <ImgContainer>
+        <Link to={`/books/${book.id}`}>
+          <IMG src={book.cover_img} alt={`${book.id}번쨰 책`} />
+        </Link>
+      </ImgContainer>
+    </>
   );
 }
 

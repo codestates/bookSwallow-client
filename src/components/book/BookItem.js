@@ -3,6 +3,10 @@ import styled, { css } from 'styled-components';
 import { MdThumbUp } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { darken } from 'polished';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { getBooks } from '../../modules/books';
+import LikeButton from './LikeButton';
 
 const LikeUp = styled(MdThumbUp)`
   font-size: 1.2rem;
@@ -14,7 +18,7 @@ const BookItemDiv = styled.div`
 
   align-content: flex-start;
   margin-bottom: 2rem;
-  background-color: #e9ecef;
+  background-color: #e5e5e5;
 
   border: 0.5px solid #adb5bd;
   border-radius: 0.7rem;
@@ -49,8 +53,10 @@ const BookContentDiv = styled.div`
   }
 `;
 
-const LikeDiv = styled.div`
+const LikeDiv = styled.button`
   padding: 10px 20px 10px 20px;
+
+  cursor: pointer;
 
   position: absolute;
   right: 1rem;
@@ -75,7 +81,35 @@ const LikeDiv = styled.div`
     `}
 `;
 
-function BookItem({ book }) {
+function BookItem({ book, like }) {
+  const dispatch = useDispatch();
+
+  async function likeHandler() {
+    await axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URI}/books/like`,
+        {
+          book_id: book.id,
+        },
+        { withCredentials: true },
+      )
+      .then(async (response) => {
+        const recentBookId = response.config.data.split(':')[1].split('}')[0];
+        const nowLikeCount = await axios.get(
+          `${process.env.REACT_APP_SERVER_URI}/books/${recentBookId}`,
+        );
+        console.log(nowLikeCount.data.data);
+        console.log(like);
+        if (like !== nowLikeCount.data.data.like_count) {
+          await dispatch(getBooks());
+        }
+      })
+      .catch(async (err) => {
+        console.log(err);
+        alert('로그인하지 않으면 좋아요가 불가능합니다');
+      });
+  }
+
   return (
     <>
       <BookItemDiv>
@@ -88,15 +122,10 @@ function BookItem({ book }) {
           </Link>
           <p>{book.description}</p>
         </BookContentDiv>
-        <LikeDiv like={false}>
-          <LikeUp>
-            <MdThumbUp />
-          </LikeUp>
-          <span>{book.like_count}</span>
-        </LikeDiv>
+        <LikeButton likeHandler={likeHandler} like={like} />
       </BookItemDiv>
     </>
   );
 }
 
-export default BookItem;
+export default React.memo(BookItem);

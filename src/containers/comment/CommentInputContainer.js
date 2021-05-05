@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import CommentInput from '../../components/comment/CommentInput';
@@ -6,13 +6,18 @@ import { createComment } from '../../modules/comments';
 
 function CommentInputContainer({ bookId }) {
   const [comment, setComment] = useState('');
-  const { data } = useSelector((state) => state.comments.comments);
+  useSelector((state) => state.comments.comments);
+  const { isLogin } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(createComment(bookId, comment));
-    setComment('');
+    if (isLogin) {
+      dispatch(createComment(bookId, comment));
+      setComment('');
+    } else {
+      alert('로그인을 해주세요');
+    }
   };
   const onChange = (event) => {
     setComment(event.target.value);

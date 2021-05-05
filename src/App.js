@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import styled, { ThemProvider } from 'styled-components';
+import styled from 'styled-components';
 
 import GlobalStyles from './components/common/GlobalStyles';
 import Responsive from './components/common/Responsive';

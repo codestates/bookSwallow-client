@@ -21,4 +21,4 @@ function BooksContainer() {
   return <BookList books={data.data} />;
 }
 
-export default BooksContainer;
+export default React.memo(BooksContainer);

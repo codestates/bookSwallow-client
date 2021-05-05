@@ -1,31 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import BookSlideItem from './BookSlideItem';
 import styled from 'styled-components';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { lighten } from 'polished';
-
-const data = [
-  {
-    id: 1,
-    imgUrl: 'https://image.aladin.co.kr/product/5305/11/cover/8966261256_1.jpg',
-  },
-  {
-    id: 2,
-    imgUrl: 'https://image.aladin.co.kr/product/6055/2/cover/8998139766_1.jpg',
-  },
-  {
-    id: 3,
-    imgUrl: 'https://image.aladin.co.kr/product/6203/71/cover/k322433122_1.jpg',
-  },
-  {
-    id: 4,
-    imgUrl: 'https://image.aladin.co.kr/product/1478/34/cover/8996094064_1.jpg',
-  },
-  {
-    id: 5,
-    imgUrl: 'https://image.aladin.co.kr/product/1842/55/cover/8966260462_1.jpg',
-  },
-];
 
 const Button = styled.div`
   color: #212529;
@@ -43,12 +21,34 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Slider = styled.div``;
+const SliderTitle = styled.div`
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #212529;
+  font-weight: 600;
+`;
 
 function BookSlide() {
-  const [images, setImages] = useState(data);
   const [currentImageIdx, setCurrentImagIdx] = useState(0);
+  const bookList = useSelector((state) => state.books.books);
+  const [array, setArray] = useState([]);
+  useEffect(() => {
+    if (bookList.data) {
+      const list = bookList.data.data;
+      const sortList = list.sort((a, b) => {
+        return b.like_count - a.like_count;
+      });
+      const data = sortList.slice(0, 5);
+      console.log(data);
+      setArray(data);
+    }
+  }, [bookList]);
 
+  const [images, setImages] = useState(array);
+  useEffect(() => {
+    setImages(array);
+  }, [array]);
   const prevSlide = () => {
     const resetToVeryBack = currentImageIdx === 0;
     const index = resetToVeryBack ? images.length - 1 : currentImageIdx - 1;
@@ -75,17 +75,20 @@ function BookSlide() {
       : activeImageSourcesFromState;
 
   return (
-    <Container>
-      <Button>
-        <MdKeyboardArrowLeft onClick={prevSlide}>이전</MdKeyboardArrowLeft>
-      </Button>
-      {imageSourcesToDisplay.map((book) => (
-        <BookSlideItem key={book.id} book={book}></BookSlideItem>
-      ))}
-      <Button>
-        <MdKeyboardArrowRight onClick={nextSlide}>다음</MdKeyboardArrowRight>
-      </Button>
-    </Container>
+    <>
+      <SliderTitle>BEST BOOKS</SliderTitle>
+      <Container>
+        <Button>
+          <MdKeyboardArrowLeft onClick={prevSlide}>이전</MdKeyboardArrowLeft>
+        </Button>
+        {imageSourcesToDisplay.map((book) => (
+          <BookSlideItem key={book.id} book={book}></BookSlideItem>
+        ))}
+        <Button>
+          <MdKeyboardArrowRight onClick={nextSlide}>다음</MdKeyboardArrowRight>
+        </Button>
+      </Container>
+    </>
   );
 }
 
