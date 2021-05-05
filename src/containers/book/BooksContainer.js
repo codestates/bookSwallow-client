@@ -12,7 +12,7 @@ function BooksContainer() {
 
   useEffect(() => {
     booksDispatch(getBooks());
-  }, []);
+  }, [booksDispatch]);
 
   if (loading) return <Loading />;
   if (error) return <Errors error={error} />;

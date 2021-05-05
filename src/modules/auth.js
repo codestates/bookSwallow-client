@@ -53,7 +53,6 @@ export const loginReq = ({ email, password }) => async (dispatch) => {
 export const updateReq = ({ password, username }) => async (dispatch) => {
   dispatch({ type: UPDATE });
   try {
-    console.log('여긴?');
     const updateRes = await authAPI.update({ password, username });
     dispatch({
       type: UPDATE_SUCCESS,
