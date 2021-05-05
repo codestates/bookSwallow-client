@@ -57,7 +57,7 @@ const LoginForm = ({ history }) => {
         console.log('sessionStorage is not working');
       }
       dispatch(loginUser(payload));
-      dispatch(userInfoReq());
+      // dispatch(userInfoReq());
     }
   }, [login, loginError, dispatch]);
 
