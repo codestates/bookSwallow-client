@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { MdThumbUp } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { darken } from 'polished';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { getBooks, getBook, setLike } from '../../modules/books';
+import { useDispatch } from 'react-redux';
+import { getBooks } from '../../modules/books';
 import LikeButton from './LikeButton';
-import Modal from '../../components/common/Modal';
-import { showModal, closeModal } from '../../modules/modal';
 
 const LikeUp = styled(MdThumbUp)`
   font-size: 1.2rem;
@@ -100,19 +98,15 @@ function BookItem({ book, like }) {
         const nowLikeCount = await axios.get(
           `${process.env.REACT_APP_SERVER_URI}/books/${recentBookId}`,
         );
-        console.log(nowLikeCount.data.data); // 업데이트된 데이터베이스의 값
+        console.log(nowLikeCount.data.data);
         console.log(like);
         if (like !== nowLikeCount.data.data.like_count) {
-          // like = nowLikeCount.data.data.like_count;
-          // await dispatch(setLike(recentBookId));
           await dispatch(getBooks());
-          // await dispatch(getBook(recentBookId));
         }
       })
       .catch(async (err) => {
         console.log(err);
-        // alert('로그인하지 않으면 좋아요가 불가능합니다');
-        // 모달로 띄우자!
+        alert('로그인하지 않으면 좋아요가 불가능합니다');
       });
   }
 
@@ -128,13 +122,6 @@ function BookItem({ book, like }) {
           </Link>
           <p>{book.description}</p>
         </BookContentDiv>
-        {/* <LikeDivMemo onClock={_onClick} /> */}
-        {/* <LikeDiv like={false} onClick={likeHandler}>
-          <LikeUp>
-            <MdThumbUp />
-          </LikeUp>
-          <span>{like}</span>
-        </LikeDiv> */}
         <LikeButton likeHandler={likeHandler} like={like} />
       </BookItemDiv>
     </>

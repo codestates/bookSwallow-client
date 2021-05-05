@@ -24,7 +24,7 @@ function BookContainer({ id }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBook(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const selectZzim = (book_id) => {
     dispatch(createZzim(book_id));
@@ -41,7 +41,7 @@ function BookContainer({ id }) {
     return () => {
       dispatch(resetCreate());
     };
-  }, [creData, creError]);
+  }, [creData, creError, dispatch]);
   const onCancel = () => {
     dispatch(closeModal());
   };

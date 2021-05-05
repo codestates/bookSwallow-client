@@ -15,15 +15,11 @@ function CommentsContainer({ bookId }) {
 
   const [updateText, setUpdateText] = useState('');
 
-  const [] = useState('');
-
   const { data, loading, error } = useSelector(
     (state) => state.comments.comments,
   );
 
-  const { email, id: userId, isLogin, username } = useSelector(
-    (state) => state.user,
-  );
+  const { id: userId } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   useEffect(() => {
