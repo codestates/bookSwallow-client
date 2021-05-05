@@ -15,8 +15,9 @@ function CommentInputContainer({ bookId }) {
     if (isLogin) {
       dispatch(createComment(bookId, comment));
       setComment('');
+    } else {
+      alert('로그인을 해주세요');
     }
-    alert('로그인을 해주세요');
   };
   const onChange = (event) => {
     setComment(event.target.value);
