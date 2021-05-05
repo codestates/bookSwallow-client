@@ -55,7 +55,11 @@ function ZzimsContainer() {
 
   return (
     <>
-      <ZzimList zzims={data.data} deleteHandler={onDelete} />
+      {data.data.length === 0 ? (
+        <div>찜한 도서가 없습니다.</div>
+      ) : (
+        <ZzimList zzims={data.data} deleteHandler={onDelete} />
+      )}
       <Modal
         visible={checkModal}
         content="삭제하시겠습니까?"
