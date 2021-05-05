@@ -47,8 +47,9 @@ const SocialContainer = ({ history }) => {
   };
 
   const googleLoginHandler = () => {
-    window.open(
-      'https://accounts.google.com/o/oauth2/v2/auth?client_id=1009279130772-rr21fhklosnq9lfh1pissvqd89sv1e5o.apps.googleusercontent.com&redirect_uri=https://www.bookswallow.shop/login/google&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile',
+    console.log(process.env.REACT_APP_CLIENT_URI);
+    window.location.assign(
+      `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_CLIENT_URI}/login/google&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile`,
     );
   };
 
