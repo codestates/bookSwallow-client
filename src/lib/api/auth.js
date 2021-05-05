@@ -64,6 +64,18 @@ export const info = async () => {
   return response.data;
 };
 
+export const check = async (id) => {
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URI}/users/${id}`,
+    {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    },
+  );
+  console.log(response);
+    return response.data;
+};
+
 export const withdraw = async (token) => {
   const response = await axios.patch(
     `${process.env.REACT_APP_SERVER_URI}/users/withdrawal`,

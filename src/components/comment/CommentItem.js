@@ -51,6 +51,7 @@ function CommentItem({
   deleteComment,
   updateCommentHandler,
 }) {
+
   return (
     <Container>
       <User>
