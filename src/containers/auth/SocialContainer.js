@@ -76,6 +76,11 @@ const SocialContainer = ({ history }) => {
               email: response.data.data.payload.email,
               username: response.data.data.payload.username,
             };
+            try {
+              sessionStorage.setItem('id', response.data.data.payload.id);
+            } catch (e) {
+              console.log('sessionStorage is not working');
+            }
             await dispatch(loginUser(newPayload));
             history.push('/');
           });

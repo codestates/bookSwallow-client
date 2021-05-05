@@ -26,7 +26,6 @@ export const logoutUser = () => async (dispatch) => {
   }
 };
 
-
 function removeSessionStorage() {
   try {
     sessionStorage.removeItem('id');
@@ -56,10 +55,9 @@ export const checkUser = (ssID) => async (dispatch) => {
 
 export const withdrawal = (token) => async (dispatch) => {
   try {
-    console.log('토큰 받아왓니', token);
     const withdraw = await authAPI.withdraw(token);
-    console.log('찍히냐');
     dispatch({ type: WITHDRAW });
+    removeSessionStorage();
   } catch (error) {
     console.log(error);
   }
@@ -76,6 +74,11 @@ export const kakaoLogin = (email, nickname) => async (dispatch) => {
       email,
       username: nickname,
     });
+    try {
+      sessionStorage.setItem('id', payload.payload.id);
+    } catch (e) {
+      console.log('sessionStorage is not working');
+    }
   } catch (error) {
     console.log(error);
   }
