@@ -8,6 +8,10 @@ const GET_BOOK = 'GET_BOOK';
 const GET_BOOK_SUCCESS = 'GET_BOOK_SUCCESS';
 const GET_BOOK_ERROR = 'GET_BOOK_ERROR';
 
+const SET_LIKE = 'SET_LIKE';
+const SET_LIKE_SUCCESS = 'SET_LIKE_SUCCESS';
+const SET_LIKE_ERROR = 'SET_LIKE_ERROR';
+
 export const getBooks = () => async (dispatch) => {
   dispatch({ type: GET_BOOKS });
   try {
@@ -35,6 +39,24 @@ export const getBook = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_BOOK_ERROR,
+      error,
+    });
+  }
+};
+
+export const setLike = (id) => async (dispatch) => {
+  dispatch({ type: SET_LIKE });
+  try {
+    const bookInfo = await booksAPI.getBook(id);
+    const book = { ...bookInfo, like_count: bookInfo.like_count + 1 };
+
+    dispatch({
+      type: SET_LIKE_SUCCESS,
+      book,
+    });
+  } catch (error) {
+    dispatch({
+      type: SET_LIKE_ERROR,
       error,
     });
   }
@@ -101,6 +123,33 @@ export default function books(state = initailState, action) {
         },
       };
     case GET_BOOK_ERROR:
+      return {
+        ...state,
+        book: {
+          loading: false,
+          data: null,
+          error: action.error,
+        },
+      };
+    case SET_LIKE:
+      return {
+        ...state,
+        book: {
+          loading: true,
+          data: null,
+          error: null,
+        },
+      };
+    case SET_LIKE_SUCCESS:
+      return {
+        ...state,
+        book: {
+          loading: false,
+          data: action.book,
+          error: null,
+        },
+      };
+    case SET_LIKE_ERROR:
       return {
         ...state,
         book: {
