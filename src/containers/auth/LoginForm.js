@@ -68,6 +68,13 @@ const LoginForm = ({ history }) => {
     }
   }, [isLogin]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(resetLogin());
+      setErrorMsg('');
+    };
+  }, []);
+
   return (
     <>
       <AuthForm type="login" onSubmitHand={onSubmitHand}></AuthForm>
