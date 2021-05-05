@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthFrom';
-import SocialAuth from '../../components/auth/SocialAuth';
 import { loginReq, resetLogin, userInfoReq } from '../../modules/auth';
 import { loginUser } from '../../modules/user';
 import styled from 'styled-components';

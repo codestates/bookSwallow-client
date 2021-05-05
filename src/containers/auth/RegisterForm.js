@@ -38,8 +38,6 @@ const RegisterForm = ({ history }) => {
 
   useEffect(() => {
     if (registerError) {
-      // console.log('오류 발생');
-      // console.log(registerError);
       if (registerError === 'already exists') {
         setErrorMsg(
           '이미 가입된 이메일 주소입니다. 다른 이메일을 입력하여 주세요.',
@@ -51,7 +49,7 @@ const RegisterForm = ({ history }) => {
       setErrorMsg('');
       console.log(register);
       dispatch(resetRegister());
-      alert('회원가입 성공'); // 모달창으로 교체 필요
+      alert('회원가입 성공');
       history.push('/login');
     }
   }, [register, registerError, errorMsg, history, dispatch]);

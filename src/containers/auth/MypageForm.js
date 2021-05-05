@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthFrom';
-import {
-  updateReq,
-  resetUpdate,
-  resetInfo,
-  userInfoReq,
-} from '../../modules/auth';
+import { updateReq, resetUpdate, resetInfo } from '../../modules/auth';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { loginUser, withdrawal } from '../../modules/user';
@@ -54,7 +49,6 @@ const UpdateForm = ({ history }) => {
   );
 
   const [errorMsg, setErrorMsg] = useState('');
-  // const [socialType, setSocialType] = useState('');
 
   const onSubmitHand = (data) => {
     if (
