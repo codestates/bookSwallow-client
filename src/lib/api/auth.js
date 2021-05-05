@@ -61,6 +61,7 @@ export const info = async () => {
       withCredentials: true,
     },
   );
+  console.log('social 데이터', response.data);
   return response.data;
 };
 
@@ -73,7 +74,7 @@ export const check = async (id) => {
     },
   );
   console.log(response);
-    return response.data;
+  return response.data;
 };
 
 export const withdraw = async (token) => {
