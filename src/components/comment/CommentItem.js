@@ -1,6 +1,8 @@
-import { lighten } from 'polished';
+import { lighten, darken } from 'polished';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 const User = styled.div`
   display: flex;
@@ -39,7 +41,57 @@ const Container = styled.div`
 `;
 
 const UpdateDiv = styled.div``;
-const UpdateText = styled.textarea``;
+const UpdateText = styled.textarea`
+  resize: none;
+  width: 30%;
+  height: 5rem;
+  padding: 0.75rem 0.75rem 1rem;
+  font-size: 1rem;
+  line-height: 1rem;
+
+  border: 1px solid #adb5bd;
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+  }
+`;
+const ButtonDiv = styled.div`
+  margin-top: 0.8rem;
+`;
+
+const Button = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  height: 2.25rem;
+  font-size: 1rem;
+
+  ${(props) => {
+    const selectedColor = props.color;
+    return css`
+      background: ${selectedColor};
+      &:hover {
+        background: ${lighten(0.1, selectedColor)};
+      }
+      &:active {
+        background: ${darken(0.1, selectedColor)};
+      }
+    `;
+  }}
+
+  &:not(:first-child) {
+    margin-left: 0.8rem;
+  }
+`;
 
 function CommentItem({
   comment,
@@ -51,13 +103,13 @@ function CommentItem({
   deleteComment,
   updateCommentHandler,
 }) {
-
+  moment.locale('ko');
   return (
     <Container>
       <User>
         <div>
           <p className="username">{comment.user.username}</p>
-          <p className="created">{comment.createdAt}</p>
+          <p className="created">{moment(comment.createdAt).fromNow()}</p>
         </div>
         {userId === comment.user_id && (
           <div>
@@ -79,20 +131,24 @@ function CommentItem({
               value={updateText}
               onChange={updateOnChange}
             ></UpdateText>
-            <button
-              onClick={() => {
-                updateCommentHandler(comment.id, updateText);
-              }}
-            >
-              수정
-            </button>
-            <button
-              onClick={() => {
-                updateStateComment(comment.id, comment.content);
-              }}
-            >
-              취소
-            </button>
+            <ButtonDiv>
+              <Button
+                color="#a78560"
+                onClick={() => {
+                  updateCommentHandler(comment.id, updateText);
+                }}
+              >
+                수정
+              </Button>
+              <Button
+                color="#ADB5BD"
+                onClick={() => {
+                  updateStateComment(comment.id, comment.content);
+                }}
+              >
+                취소
+              </Button>
+            </ButtonDiv>
           </UpdateDiv>
         ) : (
           <p>{comment.content}</p>
@@ -102,4 +158,4 @@ function CommentItem({
   );
 }
 
-export default CommentItem;
+export default React.memo(CommentItem);
