@@ -102,7 +102,7 @@ const Line = styled.div`
 const textMap = {
   login: ['로그인', '로그인', '카카오', '구글'],
   register: ['회원가입', '회원가입'],
-  mypage: ['My page', '수정'],
+  mypage: ['My page', '수정', '탈퇴하기'],
 };
 
 //올바른 이메일 형식
