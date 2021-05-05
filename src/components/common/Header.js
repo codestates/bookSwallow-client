@@ -13,8 +13,6 @@ const HeaderBlock = styled.div`
   border-bottom: 1px solid ${palette.border};
   z-index: 100;
   font-size: 1.25rem;
-  /* background-color: rgba(242, 242, 242, 0.2);
-  backdrop-filter: blur(30px); */
 `;
 
 const Wrapper = styled(Responsive)`
@@ -57,10 +55,11 @@ const LoginBox = styled.div`
     position: absolute;
     flex-direction: column;
     background: #fff;
-    width: 130px;
+    width: 110px;
     height: 80px;
     border: 1px solid ${palette.border};
     border-radius: 5px;
+    font-size: 1.125rem;
     & > div {
       flex: 1;
       display: flex;
@@ -106,14 +105,14 @@ function Header({ onLogout }) {
       <HeaderBlock>
         <Wrapper>
           <Link to="/" className="logo">
-            LOGO
+            HOME
           </Link>
           <Right>
             <div className="right">
               <StyledLink to="/books">
                 <span className="text">BOOK</span>
               </StyledLink>
-              <StyledLink to="/zzims">
+              <StyledLink to={isLogin ? '/zzims' : '/login'}>
                 <span className="text">ZZIM</span>
               </StyledLink>
             </div>

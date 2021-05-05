@@ -52,6 +52,11 @@ const LoginForm = ({ history }) => {
         email: login.data.payload.email,
         username: login.data.payload.username,
       };
+      try {
+        sessionStorage.setItem('id', payload.id);
+      } catch (e) {
+        console.log('sessionStorage is not working');
+      }
       dispatch(loginUser(payload));
     }
   }, [login, loginError, dispatch]);

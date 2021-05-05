@@ -10,11 +10,23 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
+import { checkUser } from './modules/user';
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(ReduxThunk, logger)),
 );
+
+function loadUser() {
+  try {
+    const id = sessionStorage.getItem('id');
+    if (!id) return;
+    store.dispatch(checkUser(id));
+  } catch (e) {
+    console.log('sessionStorage is not working');
+  }
+}
+loadUser();
 console.log(store.getState());
 ReactDOM.render(
   <BrowserRouter>
