@@ -7,12 +7,16 @@ import { createComment } from '../../modules/comments';
 function CommentInputContainer({ bookId }) {
   const [comment, setComment] = useState('');
   const { data } = useSelector((state) => state.comments.comments);
+  const { isLogin } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(createComment(bookId, comment));
-    setComment('');
+    if (isLogin) {
+      dispatch(createComment(bookId, comment));
+      setComment('');
+    }
+    alert('로그인을 해주세요');
   };
   const onChange = (event) => {
     setComment(event.target.value);

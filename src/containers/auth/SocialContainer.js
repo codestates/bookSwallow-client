@@ -84,7 +84,7 @@ const SocialContainer = ({ history }) => {
   }
 
   useEffect(() => {
-    if (window.location.href.indexOf('google' !== undefined)) {
+    if (window.location.href.indexOf('google' !== -1)) {
       googleLoginReqtoServer();
     }
   });
