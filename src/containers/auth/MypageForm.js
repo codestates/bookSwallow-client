@@ -1,34 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthFrom';
-import { updateReq, resetUpdate, userInfoReq } from '../../modules/auth';
+import {
+  updateReq,
+  resetUpdate,
+  userInfoReq,
+  resetInfo,
+} from '../../modules/auth';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import { loginUser } from '../../modules/user';
+import { loginUser, withdrawal } from '../../modules/user';
 
 const ErrorText = styled.div`
   margin-top: 10px;
   color: red;
 `;
 
+const WithdrawBtn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+  button {
+    border: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50vh;
+`;
+
 const UpdateForm = ({ history }) => {
   const dispatch = useDispatch();
 
-  const { update, updateError, info, infoError } = useSelector(({ auth }) => ({
-    update: auth.update,
-    updateError: auth.updateError,
-    info: auth.info,
-    infoError: auth.infoError,
-  }));
+  const { update, updateError, info, token, username, email } = useSelector(
+    ({ auth, user }) => ({
+      update: auth.update,
+      updateError: auth.updateError,
+      info: auth.info,
+      username: user.username,
+      email: user.email,
+      token: user.token,
+    }),
+  );
 
-  const [updateInp, setupdateInp] = useState({ username: '', email: '' });
+  const [userState, setUserState] = useState({ username: '', email: '' });
   const [errorMsg, setErrorMsg] = useState('');
 
   const onSubmitHand = (data) => {
     if (
-      data.email.length > 0 &&
       data.password.length > 0 &&
-      data.username.length > 0 &&
       data.PW_confirm.length > 0 &&
       data.formErrors.email.length === 0 &&
       data.formErrors.password.length === 0 &&
@@ -56,21 +86,30 @@ const UpdateForm = ({ history }) => {
     }
   }, [update, updateError, errorMsg, history, dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(userInfoReq());
-  //   setupdateInp({ username: info.username, email: info.email });
-  // }, []);
 
-  console.log('이거뜸?', updateInp);
+  const currentUser = username;
+  const currentEmail = email;
+
+
+  const withdrawalBtn = () => {
+    dispatch(withdrawal(token));
+    history.push('/');
+  };
 
   return (
     <>
       <AuthForm
         type="mypage"
+        currentUser={currentUser}
+        currentEmail={currentEmail}
         onSubmitHand={onSubmitHand}
-        updateInp={updateInp}
       ></AuthForm>
       <ErrorText>{errorMsg}</ErrorText>
+      <Container>
+        <WithdrawBtn>
+          <button onClick={() => withdrawalBtn()}>탈퇴하기</button>
+        </WithdrawBtn>
+      </Container>
     </>
   );
 };

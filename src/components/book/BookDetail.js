@@ -72,7 +72,6 @@ const Button = styled.button`
   }
 `;
 
-
 function BookDetail({ book, onSelect }) {
   return (
     <FlexContainer>

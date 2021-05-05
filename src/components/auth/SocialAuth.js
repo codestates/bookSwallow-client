@@ -59,7 +59,7 @@ const SnsButton = styled.div`
   }
 `;
 
-const SocialAuth = ({ googleLoginHandler }) => {
+const SocialAuth = ({ googleLoginHandler, kakaoLoginHandler }) => {
   return (
     <Wrapper>
       <Line />
@@ -71,7 +71,7 @@ const SocialAuth = ({ googleLoginHandler }) => {
             alt=""
             onClick={googleLoginHandler}
           />
-          <img src="/images/sns-kakao.png" alt="" />
+          <img src="/images/sns-kakao.png" alt="" onClick={kakaoLoginHandler} />
         </div>
       </SnsButton>
     </Wrapper>

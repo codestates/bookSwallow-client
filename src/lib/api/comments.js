@@ -23,7 +23,7 @@ export const createComment = async (bookId, token, comment) => {
   return response;
 };
 
-export const updateComment = async (commentId, token) => {
+export const updateComment = async (commentId, comment, token) => {
   const response = await axios.patch(
     `${process.env.REACT_APP_SERVER_URI}/comments/${commentId}`,
     {
@@ -31,9 +31,11 @@ export const updateComment = async (commentId, token) => {
         authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
+      content: comment,
     },
     { withCredentials: true },
   );
+  return response.data;
 };
 
 export const deleteComment = async (commentId, token) => {

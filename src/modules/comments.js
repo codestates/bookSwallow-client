@@ -58,12 +58,25 @@ export const createComment = (bookId, comment) => async (
   }
 };
 
-export const updateComment = (bookId, comment) => async (
+export const updateComment = (commentId, comment) => async (
   dispatch,
   getState,
 ) => {
   const comments = getState().comments.comments.data;
   const token = getState().user.token;
+  dispatch({ type: UPDATE_COMMENT });
+  try {
+    const data = await commentsAPI.updateComment(commentId, comment, token);
+    const newComment = comments.map((comment) => {
+      if (comment.id === commentId) {
+        return data;
+      }
+      return comment;
+    });
+    dispatch({ type: UPDATE_COMMENT_SUCCESS, comments: newComment });
+  } catch (error) {
+    dispatch({ type: UPDATE_COMMENT_ERROR, error });
+  }
 };
 
 export const deleteComment = (commentId, bookId) => async (
@@ -147,6 +160,34 @@ export default function comments(state = initailState, action) {
         },
       };
 
+    case UPDATE_COMMENT:
+      return {
+        ...state,
+        comments: {
+          loading: true,
+          data: null,
+          error: null,
+        },
+      };
+    case UPDATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: {
+          loading: false,
+          data: action.comments,
+          error: null,
+        },
+      };
+    case UPDATE_COMMENT_ERROR:
+      return {
+        ...state,
+        comments: {
+          loading: false,
+          data: null,
+          error: action.error,
+        },
+      };
+
     case DELETE_COMMENT:
       return {
         ...state,
@@ -161,6 +202,7 @@ export default function comments(state = initailState, action) {
         comments: {
           loading: false,
           data: action.comments,
+          error: null,
         },
       };
     case DELETE_COMMENT_ERROR:
