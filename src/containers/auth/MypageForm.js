@@ -4,8 +4,8 @@ import AuthForm from '../../components/auth/AuthFrom';
 import {
   updateReq,
   resetUpdate,
-  userInfoReq,
   resetInfo,
+  userInfoReq,
 } from '../../modules/auth';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
@@ -42,7 +42,7 @@ const Container = styled.div`
 const UpdateForm = ({ history }) => {
   const dispatch = useDispatch();
 
-  const { update, updateError, info, token, username, email } = useSelector(
+  const { update, updateError, token, username, email, info } = useSelector(
     ({ auth, user }) => ({
       update: auth.update,
       updateError: auth.updateError,
@@ -53,13 +53,11 @@ const UpdateForm = ({ history }) => {
     }),
   );
 
-  const [userState, setUserState] = useState({ username: '', email: '' });
   const [errorMsg, setErrorMsg] = useState('');
+  // const [socialType, setSocialType] = useState('');
 
   const onSubmitHand = (data) => {
     if (
-      data.password.length > 0 &&
-      data.PW_confirm.length > 0 &&
       data.formErrors.email.length === 0 &&
       data.formErrors.password.length === 0 &&
       data.formErrors.username.length === 0 &&
@@ -79,20 +77,30 @@ const UpdateForm = ({ history }) => {
     if (update) {
       setErrorMsg('');
       console.log('update 완료', update);
-      dispatch(loginUser(update.data.accessToken));
-      alert(update.message);
+      const payload = {
+        token: update.data.accessToken,
+        id: update.data.payload.id,
+        email: update.data.payload.email,
+        username: update.data.payload.username,
+      };
+      dispatch(loginUser(payload));
       dispatch(resetUpdate());
       history.push('/');
     }
   }, [update, updateError, errorMsg, history, dispatch]);
 
-
   const currentUser = username;
   const currentEmail = email;
+  const socialType = info.social_type;
+  let socialBolean = false;
 
+  if (socialType.length > 0) {
+    socialBolean = true;
+  }
 
   const withdrawalBtn = () => {
     dispatch(withdrawal(token));
+    dispatch(resetInfo());
     history.push('/');
   };
 
@@ -103,6 +111,7 @@ const UpdateForm = ({ history }) => {
         currentUser={currentUser}
         currentEmail={currentEmail}
         onSubmitHand={onSubmitHand}
+        socialBolean={socialBolean}
       ></AuthForm>
       <ErrorText>{errorMsg}</ErrorText>
       <Container>

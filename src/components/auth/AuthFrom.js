@@ -117,9 +117,14 @@ const isMatch = (password1, password2) => {
   return password1 !== password2;
 };
 
-const AuthForm = ({ type, onSubmitHand, currentUser, currentEmail }) => {
+const AuthForm = ({
+  type,
+  onSubmitHand,
+  currentUser,
+  currentEmail,
+  socialBolean,
+}) => {
   const text = textMap[type];
-
   const [valueChange, setValueChange] = useState(currentUser);
   const [state, setState] = useState({
     username: '',
@@ -225,7 +230,8 @@ const AuthForm = ({ type, onSubmitHand, currentUser, currentEmail }) => {
                   name="email"
                   onChange={loginOnChange}
                   value={currentEmail || ''}
-                  readonl
+                  readonly
+                  style={{ background: '#e9ecef' }}
                 />
                 {formErrors.email.length > 0 && (
                   <span className="errorMessage">{formErrors.email}</span>
@@ -276,7 +282,7 @@ const AuthForm = ({ type, onSubmitHand, currentUser, currentEmail }) => {
                 <LabelText>비밀번호</LabelText>
               </WrapperInput>
             )}
-            {(type === 'register' || type === 'mypage') && (
+            {type === 'register' && (
               <WrapperInput>
                 <InputEl
                   className={formErrors.password.length > 0 ? 'error' : null}
@@ -292,7 +298,29 @@ const AuthForm = ({ type, onSubmitHand, currentUser, currentEmail }) => {
                 <LabelText>비밀번호</LabelText>
               </WrapperInput>
             )}
-            {(type === 'register' || type === 'mypage') && (
+            {socialBolean
+              ? null
+              : type === 'mypage' && (
+                  <WrapperInput>
+                    <InputEl
+                      className={
+                        formErrors.password.length > 0 ? 'error' : null
+                      }
+                      type="password"
+                      name="password"
+                      onChange={loginOnChange}
+                      value={password || ''}
+                      required
+                    />
+                    {formErrors.password.length > 0 && (
+                      <span className="errorMessage">
+                        {formErrors.password}
+                      </span>
+                    )}
+                    <LabelText>비밀번호</LabelText>
+                  </WrapperInput>
+                )}
+            {type === 'register' && (
               <WrapperInput>
                 <InputEl
                   className={formErrors.PW_confirm.length > 0 ? 'error' : null}
@@ -308,6 +336,28 @@ const AuthForm = ({ type, onSubmitHand, currentUser, currentEmail }) => {
                 <LabelText>비밀번호 확인</LabelText>
               </WrapperInput>
             )}
+            {socialBolean
+              ? null
+              : type === 'mypage' && (
+                  <WrapperInput>
+                    <InputEl
+                      className={
+                        formErrors.PW_confirm.length > 0 ? 'error' : null
+                      }
+                      type="password"
+                      name="PW_confirm"
+                      onChange={loginOnChange}
+                      value={PW_confirm || ''}
+                      required
+                    />
+                    {formErrors.PW_confirm.length > 0 && (
+                      <span className="errorMessage">
+                        {formErrors.PW_confirm}
+                      </span>
+                    )}
+                    <LabelText>비밀번호 확인</LabelText>
+                  </WrapperInput>
+                )}
           </FieldSet>
           {type === 'login' && (
             <Button sideButton fullWidth type="submit">

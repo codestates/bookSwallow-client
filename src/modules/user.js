@@ -5,7 +5,6 @@ const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 const WITHDRAW = 'WITHDRAW';
 
-
 export const loginUser = ({ token, id, email, username }) => ({
   type: LOGIN_USER,
   token,
@@ -25,9 +24,7 @@ export const logoutUser = () => async (dispatch) => {
 
 export const withdrawal = (token) => async (dispatch) => {
   try {
-    console.log('토큰 받아왓니', token);
     const withdraw = await authAPI.withdraw(token);
-    console.log('찍히냐');
     dispatch({ type: WITHDRAW });
   } catch (error) {
     console.log(error);
@@ -49,7 +46,6 @@ export const kakaoLogin = (email, nickname) => async (dispatch) => {
     console.log(error);
   }
 };
-
 
 const initialState = {
   isLogin: false,

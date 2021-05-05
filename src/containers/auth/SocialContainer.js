@@ -4,12 +4,14 @@ import SocialAuth from '../../components/auth/SocialAuth';
 import { kakaoLogin, loginUser } from '../../modules/user';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { userInfoReq } from '../../modules/auth';
 
 const SocialContainer = ({ history }) => {
   const dispatch = useDispatch();
 
   const kakaoLoginHandler = () => {
     try {
+      dispatch(userInfoReq());
       return new Promise((resolve, reject) => {
         if (!window.Kakao) {
           reject('Kakao 인스턴스가 존재하지 않습니다.');
@@ -77,6 +79,7 @@ const SocialContainer = ({ history }) => {
               username: response.data.data.payload.username,
             };
             await dispatch(loginUser(newPayload));
+            await dispatch(userInfoReq());
             history.push('/');
           });
       }
