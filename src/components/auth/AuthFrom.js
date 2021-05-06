@@ -121,7 +121,7 @@ const AuthForm = ({
   onSubmitHand,
   currentUser,
   currentEmail,
-  socialType,
+  socialLeng,
 }) => {
   const text = textMap[type];
   const [valueChange, setValueChange] = useState(currentUser);
@@ -297,8 +297,9 @@ const AuthForm = ({
                 <LabelText>비밀번호</LabelText>
               </WrapperInput>
             )}
-            {socialType > 0
-              ? type === 'mypage' && (
+            {socialLeng > 0
+              ? null
+              : type === 'mypage' && (
                   <WrapperInput>
                     <InputEl
                       className={
@@ -317,8 +318,7 @@ const AuthForm = ({
                     )}
                     <LabelText>비밀번호</LabelText>
                   </WrapperInput>
-                )
-              : null}
+                )}
             {type === 'register' && (
               <WrapperInput>
                 <InputEl
@@ -335,8 +335,9 @@ const AuthForm = ({
                 <LabelText>비밀번호 확인</LabelText>
               </WrapperInput>
             )}
-            {socialType > 0
-              ? type === 'mypage' && (
+            {socialLeng > 0
+              ? null
+              : type === 'mypage' && (
                   <WrapperInput>
                     <InputEl
                       className={
@@ -355,8 +356,7 @@ const AuthForm = ({
                     )}
                     <LabelText>비밀번호 확인</LabelText>
                   </WrapperInput>
-                )
-              : null}
+                )}
           </FieldSet>
           {type === 'login' && (
             <Button sideButton fullWidth type="submit">

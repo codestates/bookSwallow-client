@@ -83,6 +83,7 @@ const SocialContainer = ({ history }) => {
               console.log('sessionStorage is not working');
             }
             await dispatch(loginUser(newPayload));
+            await dispatch(userInfoReq());
             history.push('/');
           });
       }

@@ -75,6 +75,7 @@ export const kakaoLogin = (email, nickname) => async (dispatch) => {
       email,
       username: payload.payload.username,
     });
+    dispatch(userInfoReq());
     try {
       sessionStorage.setItem('id', payload.payload.id);
     } catch (e) {
