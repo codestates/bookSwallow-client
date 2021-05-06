@@ -73,7 +73,6 @@ export const userInfoReq = () => async (dispatch, getState) => {
 
   try {
     const infoRes = await authAPI.info();
-
     dispatch({
       type: INFORMATION_SUCCESS,
       info: infoRes,
