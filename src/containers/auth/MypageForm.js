@@ -63,6 +63,7 @@ const UpdateForm = ({ history }) => {
   }));
 
   const [errorMsg, setErrorMsg] = useState('');
+  const [socialType, setSocialType] = useState('');
 
   const onSubmitHand = (data) => {
     if (
@@ -100,13 +101,15 @@ const UpdateForm = ({ history }) => {
   const currentUser = username;
   const currentEmail = email;
 
-  let socialType = '';
+  useEffect(() => {
+    dispatch(userInfoReq());
+  }, [dispatch]);
 
-  if (info) {
-    socialType = info.social_type;
-  }
-
-  let socialLeng = socialType.length;
+  useEffect(() => {
+    if (info) {
+      setSocialType(info.social_type);
+    }
+  }, [info]);
 
   const onCancel = () => {
     dispatch(closeModal());
@@ -127,7 +130,7 @@ const UpdateForm = ({ history }) => {
         currentUser={currentUser}
         currentEmail={currentEmail}
         onSubmitHand={onSubmitHand}
-        socialLeng={socialLeng}
+        socialLeng={socialType.length}
       ></AuthForm>
       <ErrorText>{errorMsg}</ErrorText>
       <Container>
