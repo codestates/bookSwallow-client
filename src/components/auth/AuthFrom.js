@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
@@ -124,6 +124,7 @@ const AuthForm = ({
   socialLeng,
 }) => {
   const text = textMap[type];
+
   const [valueChange, setValueChange] = useState(currentUser);
   const [state, setState] = useState({
     username: '',
@@ -261,7 +262,7 @@ const AuthForm = ({
                   type="text"
                   name="username"
                   onChange={loginOnChange}
-                  value={valueChange || ''}
+                  value={valueChange}
                 />
                 {formErrors.username.length > 0 && (
                   <span className="errorMessage">{formErrors.username}</span>

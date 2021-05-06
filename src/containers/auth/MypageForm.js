@@ -85,7 +85,6 @@ const UpdateForm = ({ history }) => {
     }
     if (update) {
       setErrorMsg('');
-      console.log('update 완료', update);
       const payload = {
         token: update.data.accessToken,
         id: update.data.payload.id,
@@ -98,7 +97,7 @@ const UpdateForm = ({ history }) => {
     }
   }, [update, updateError, errorMsg, history, dispatch]);
 
-  const currentUser = username;
+  let currentUser = username;
   const currentEmail = email;
 
   useEffect(() => {

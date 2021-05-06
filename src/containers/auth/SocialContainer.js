@@ -4,7 +4,6 @@ import SocialAuth from '../../components/auth/SocialAuth';
 import { kakaoLogin, loginUser } from '../../modules/user';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { userInfoReq } from '../../modules/auth';
 
 const SocialContainer = ({ history }) => {
   const dispatch = useDispatch();

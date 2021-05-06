@@ -36,14 +36,12 @@ const LoginForm = ({ history }) => {
 
   useEffect(() => {
     if (loginError) {
-      console.log('에러 발생');
       console.log(loginError);
       setErrorMsg(loginError);
       return;
     }
     if (login) {
       setErrorMsg('');
-      console.log('로그인 성공');
       console.log(login);
       const payload = {
         token: login.data.accessToken,
