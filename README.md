@@ -203,7 +203,7 @@
 ## 👥 Member Information
 | Member |   ROLE    |       E-mail        |
 | :----: | :-------: | :-----------------: |
-| 🤓오우영 | Front-end | fz7948@gmail.com |
-| 🦉이재윤 | Back-end  | wodbs9128@gmail.com |
-| 😛조세민 | Back-end  | 1015tpals@gmail.com |
-| 😎조태규 | Front-end | chotg5592@gmail.com |
+| 🤓 오우영 | Front-end | fz7948@gmail.com |
+| 🦉 이재윤 | Back-end  | wodbs9128@gmail.com |
+| 😑 조세민 | Back-end  | 1015tpals@gmail.com |
+| 😎 조태규 | Front-end | chotg5592@gmail.com |
