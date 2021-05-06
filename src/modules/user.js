@@ -67,7 +67,6 @@ export const withdrawal = (token) => async (dispatch) => {
 export const kakaoLogin = (email, nickname) => async (dispatch) => {
   try {
     const payload = await kakaoAPI.kakaoLogin(email, nickname);
-    console.log(payload);
     dispatch({
       type: LOGIN_USER,
       token: payload.accessToken,
