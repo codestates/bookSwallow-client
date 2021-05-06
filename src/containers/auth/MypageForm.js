@@ -10,6 +10,8 @@ import {
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { loginUser, withdrawal } from '../../modules/user';
+import Modal from '../../components/common/Modal';
+import { showModal, closeModal } from '../../modules/modal';
 
 const ErrorText = styled.div`
   margin-top: 10px;
@@ -42,16 +44,23 @@ const Container = styled.div`
 const UpdateForm = ({ history }) => {
   const dispatch = useDispatch();
 
-  const { update, updateError, token, username, email, info } = useSelector(
-    ({ auth, user }) => ({
-      update: auth.update,
-      updateError: auth.updateError,
-      info: auth.info,
-      username: user.username,
-      email: user.email,
-      token: user.token,
-    }),
-  );
+  const {
+    update,
+    updateError,
+    token,
+    username,
+    email,
+    info,
+    checkModal,
+  } = useSelector(({ auth, user, modal }) => ({
+    update: auth.update,
+    updateError: auth.updateError,
+    info: auth.info,
+    username: user.username,
+    email: user.email,
+    token: user.token,
+    checkModal: modal.checkModal,
+  }));
 
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -99,10 +108,16 @@ const UpdateForm = ({ history }) => {
 
   let socialLeng = socialType.length;
 
-  const withdrawalBtn = () => {
+  const onCancel = () => {
+    dispatch(closeModal());
+  };
+  const onWithdrawal = () => {
     dispatch(withdrawal(token));
     dispatch(resetInfo());
     history.push('/');
+  };
+  const withdrawalBtn = () => {
+    dispatch(showModal());
   };
 
   return (
@@ -120,6 +135,12 @@ const UpdateForm = ({ history }) => {
           <button onClick={() => withdrawalBtn()}>탈퇴하기</button>
         </WithdrawBtn>
       </Container>
+      <Modal
+        visible={checkModal}
+        content="탈퇴하시겠습니까?"
+        onCancel={onCancel}
+        onConfirm={onWithdrawal}
+      />
     </>
   );
 };
