@@ -1,6 +1,5 @@
 import * as authAPI from '../lib/api/auth';
 import * as kakaoAPI from '../lib/api/kakaoLogin';
-import { userInfoReq } from './auth';
 
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';

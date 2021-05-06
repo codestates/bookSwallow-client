@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
@@ -130,7 +129,9 @@ const AuthForm = ({
     setValueChange(uusername);
   }, [uusername]);
   const text = textMap[type];
-  const [valueChange, setValueChange] = useState(uusername);
+
+  const [valueChange, setValueChange] = useState(currentUser);
+
   const [state, setState] = useState({
     username: '',
     email: '',
@@ -267,7 +268,7 @@ const AuthForm = ({
                   type="text"
                   name="username"
                   onChange={loginOnChange}
-                  value={valueChange || ''}
+                  value={valueChange}
                 />
                 {formErrors.username.length > 0 && (
                   <span className="errorMessage">{formErrors.username}</span>
