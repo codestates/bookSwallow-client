@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
@@ -123,8 +124,13 @@ const AuthForm = ({
   currentEmail,
   socialType,
 }) => {
+  const uuusername = useSelector((state) => state.user);
+  const uusername = uuusername.username;
+  useEffect(() => {
+    setValueChange(uusername);
+  }, [uusername]);
   const text = textMap[type];
-  const [valueChange, setValueChange] = useState(currentUser);
+  const [valueChange, setValueChange] = useState(uusername);
   const [state, setState] = useState({
     username: '',
     email: '',

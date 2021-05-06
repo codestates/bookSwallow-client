@@ -4,7 +4,6 @@ import SocialAuth from '../../components/auth/SocialAuth';
 import { kakaoLogin, loginUser } from '../../modules/user';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { userInfoReq } from '../../modules/auth';
 
 const SocialContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -47,7 +46,6 @@ const SocialContainer = ({ history }) => {
   };
 
   const googleLoginHandler = () => {
-    console.log(process.env.REACT_APP_CLIENT_URI);
     window.location.assign(
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_CLIENT_URI}/login/google&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile`,
     );

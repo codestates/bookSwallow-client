@@ -8,13 +8,12 @@ import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './modules';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import logger from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 import { checkUser } from './modules/user';
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(ReduxThunk, logger)),
+  composeWithDevTools(applyMiddleware(ReduxThunk)),
 );
 
 function loadUser() {
@@ -27,7 +26,6 @@ function loadUser() {
   }
 }
 loadUser();
-console.log(store.getState());
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
