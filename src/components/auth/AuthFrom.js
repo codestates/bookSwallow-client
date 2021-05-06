@@ -123,9 +123,15 @@ const AuthForm = ({
   currentEmail,
   socialLeng,
 }) => {
+  const uuusername = useSelector((state) => state.user);
+  const uusername = uuusername.username;
+  useEffect(() => {
+    setValueChange(uusername);
+  }, [uusername]);
   const text = textMap[type];
 
   const [valueChange, setValueChange] = useState(currentUser);
+
   const [state, setState] = useState({
     username: '',
     email: '',
