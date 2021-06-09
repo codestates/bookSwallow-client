@@ -32,6 +32,8 @@ function App() {
         <Route component={RegisterPage} path="/signup" />
         <Route component={BookDetailPage} path="/books/:id" />
         <Route component={Mypage} path="/mypage" />
+
+        {/* 예시 */}
       </Wrapper>
     </>
   );
